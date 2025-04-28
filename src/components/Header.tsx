@@ -1,6 +1,6 @@
-import { Link } from '@tanstack/react-router'
+import { Link } from "@tanstack/react-router";
 
-import ClerkHeader from '../integrations/clerk/header-user'
+import ClerkHeader from "../integrations/clerk/header-user";
 
 export default function Header() {
   return (
@@ -15,15 +15,11 @@ export default function Header() {
         </div>
 
         <div className="px-2 font-bold">
-          <Link to="/demo/start/server-funcs">Start - Server Functions</Link>
+          <Link to="/sheet">Sheet</Link>
         </div>
 
         <div className="px-2 font-bold">
-          <Link to="/demo/start/api-request">Start - API Request</Link>
-        </div>
-
-        <div className="px-2 font-bold">
-          <Link to="/demo/tanstack-query">TanStack Query</Link>
+          <Link to="/test">Test</Link>
         </div>
       </nav>
 
@@ -31,5 +27,5 @@ export default function Header() {
         <ClerkHeader />
       </div>
     </header>
-  )
+  );
 }
