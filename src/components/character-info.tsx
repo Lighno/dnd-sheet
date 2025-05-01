@@ -23,8 +23,8 @@ export default function CharacterInfo({
   readOnly = false,
 }: CharacterInfoProps) {
   return (
-    <div className="p-4 border-b border-slate-200 dark:border-slate-800">
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+    <div className="border-b border-slate-200 p-4 dark:border-slate-800">
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
         <div className="space-y-2">
           <Label htmlFor="name">Character Name</Label>
           <Input
@@ -125,7 +125,7 @@ export default function CharacterInfo({
         </div>
       </div>
 
-      <div className="grid grid-cols-3 gap-4 mt-4">
+      <div className="mt-4 grid grid-cols-3 gap-4">
         <div className="space-y-2">
           <Label htmlFor="alignment">Alignment</Label>
           <Select

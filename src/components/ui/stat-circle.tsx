@@ -72,7 +72,7 @@ export default function StatCircle({
             max={max}
             readOnly={readOnly}
             disabled={readOnly}
-            className="relative z-10 h-full w-full bg-transparent text-center text-2xl font-bold text-slate-800 outline-none transition-colors [-moz-appearance:_textfield] hover:text-slate-600 focus:text-slate-600 [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none dark:text-slate-200 dark:hover:text-slate-300 dark:focus:text-slate-300"
+            className="relative z-10 h-full w-full bg-transparent text-center text-2xl font-bold text-slate-800 transition-colors outline-none [-moz-appearance:textfield] hover:text-slate-600 focus:text-slate-600 dark:text-slate-200 dark:hover:text-slate-300 dark:focus:text-slate-300 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
           />
 
           {/* Control buttons */}
@@ -82,7 +82,7 @@ export default function StatCircle({
                 type="button"
                 onClick={decrement}
                 disabled={value <= min}
-                className="absolute -left-2 z-20 flex h-6 w-6 items-center justify-center rounded-full border border-slate-300 bg-white text-slate-600 opacity-0 shadow-sm transition-all hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-50 group-hover:opacity-100 dark:border-slate-600 dark:bg-slate-700 dark:text-slate-300 dark:hover:bg-slate-600"
+                className="absolute -left-2 z-20 flex h-6 w-6 items-center justify-center rounded-full border border-slate-300 bg-white text-slate-600 opacity-0 shadow-sm transition-all group-hover:opacity-100 hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-50 dark:border-slate-600 dark:bg-slate-700 dark:text-slate-300 dark:hover:bg-slate-600"
                 aria-label="Decrease value"
               >
                 <Minus className="h-3 w-3" />
@@ -91,7 +91,7 @@ export default function StatCircle({
                 type="button"
                 onClick={increment}
                 disabled={Boolean(max && value >= max)}
-                className="absolute -right-2 z-20 flex h-6 w-6 items-center justify-center rounded-full border border-slate-300 bg-white text-slate-600 opacity-0 shadow-sm transition-all hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-50 group-hover:opacity-100 dark:border-slate-600 dark:bg-slate-700 dark:text-slate-300 dark:hover:bg-slate-600"
+                className="absolute -right-2 z-20 flex h-6 w-6 items-center justify-center rounded-full border border-slate-300 bg-white text-slate-600 opacity-0 shadow-sm transition-all group-hover:opacity-100 hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-50 dark:border-slate-600 dark:bg-slate-700 dark:text-slate-300 dark:hover:bg-slate-600"
                 aria-label="Increase value"
               >
                 <Plus className="h-3 w-3" />

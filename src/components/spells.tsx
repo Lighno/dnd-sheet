@@ -106,7 +106,7 @@ export default function Spells({
 
   return (
     <div className="space-y-6">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
         <Card>
           <CardHeader>
             <CardTitle>Spell Slots</CardTitle>
@@ -382,7 +382,7 @@ export default function Spells({
                   </Card>
                 ))}
               {spells.filter((spell) => spell.level === level).length === 0 && (
-                <div className="text-center py-4 text-slate-500">
+                <div className="py-4 text-center text-slate-500">
                   No {level === 0 ? "cantrips" : `level ${level} spells`} added
                   yet.
                 </div>

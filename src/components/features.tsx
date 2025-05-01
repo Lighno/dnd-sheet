@@ -57,7 +57,7 @@ export default function Features({
       <div className="grid gap-4">
         {features.map((feature) => (
           <Card key={feature.id}>
-            <CardHeader className="pb-2 flex flex-row items-center justify-between">
+            <CardHeader className="flex flex-row items-center justify-between pb-2">
               <div>
                 <CardTitle>{feature.name}</CardTitle>
                 <p className="text-sm text-slate-500">{feature.source}</p>
@@ -81,7 +81,7 @@ export default function Features({
       </div>
 
       {features.length === 0 && (
-        <div className="text-center py-8 text-slate-500">
+        <div className="py-8 text-center text-slate-500">
           <p>
             No features added yet.{" "}
             {!readOnly && "Add your first feature below."}

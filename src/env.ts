@@ -18,7 +18,6 @@ export const env = createEnv({
   clientPrefix: "VITE_",
 
   client: {
-    VITE_APP_TITLE: z.string().min(1).optional(),
     VITE_CLERK_PUBLISHABLE_KEY: z.string(),
   },
 
@@ -26,7 +25,11 @@ export const env = createEnv({
    * What object holds the environment variables at runtime. This is usually
    * `process.env` or `import.meta.env`.
    */
-  runtimeEnv: isServer ? process.env : import.meta.env,
+  runtimeEnvStrict: {
+    SERVER_URL: process.env.SERVER_URL,
+    CLERK_SECRET_KEY: process.env.CLERK_SECRET_KEY,
+    VITE_CLERK_PUBLISHABLE_KEY: import.meta.env.VITE_CLERK_PUBLISHABLE_KEY,
+  },
 
   /**
    * By default, this library will feed the environment variables directly to

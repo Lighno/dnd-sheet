@@ -168,7 +168,7 @@ export default function Weapons({
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div className="flex items-center">
-          <Swords className="h-5 w-5 mr-2" />
+          <Swords className="mr-2 h-5 w-5" />
           <h2 className="text-lg font-semibold">Weapons & Attacks</h2>
         </div>
       </div>
@@ -177,10 +177,10 @@ export default function Weapons({
         {weapons.map((weapon) => (
           <Card key={weapon.id}>
             <CardContent className="p-4">
-              <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+              <div className="flex flex-col justify-between gap-4 md:flex-row md:items-center">
                 <div className="flex-1">
                   <div className="flex items-center justify-between">
-                    <h3 className="font-semibold text-lg">{weapon.name}</h3>
+                    <h3 className="text-lg font-semibold">{weapon.name}</h3>
                     {!readOnly && (
                       <Button
                         variant="ghost"
@@ -200,7 +200,7 @@ export default function Weapons({
 
                 <div className="flex items-center gap-4">
                   <div className="text-center">
-                    <div className="border-2 border-slate-300 dark:border-slate-700 rounded-full h-14 w-14 flex items-center justify-center">
+                    <div className="flex h-14 w-14 items-center justify-center rounded-full border-2 border-slate-300 dark:border-slate-700">
                       <span className="text-xl font-bold">
                         {calculateAttackBonus(weapon) >= 0 ? "+" : ""}
                         {calculateAttackBonus(weapon)}
@@ -210,7 +210,7 @@ export default function Weapons({
                   </div>
 
                   <div className="text-center">
-                    <div className="border-2 border-slate-300 dark:border-slate-700 rounded-full h-14 w-14 flex items-center justify-center">
+                    <div className="flex h-14 w-14 items-center justify-center rounded-full border-2 border-slate-300 dark:border-slate-700">
                       <span className="text-xl font-bold">
                         {weapon.damageDice}
                         {calculateDamageBonus(weapon) !== 0 &&
@@ -223,7 +223,7 @@ export default function Weapons({
               </div>
 
               {!readOnly && (
-                <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-2">
                   <div className="space-y-4">
                     <div className="flex items-center space-x-2">
                       <Checkbox
@@ -235,7 +235,7 @@ export default function Weapons({
                       />
                       <label
                         htmlFor={`proficient-${weapon.id}`}
-                        className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                        className="text-sm leading-none font-medium peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                       >
                         Proficient
                       </label>
@@ -408,7 +408,7 @@ export default function Weapons({
                           />
                           <label
                             htmlFor={`property-${property}-${weapon.id}`}
-                            className="text-xs font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 capitalize"
+                            className="text-xs leading-none font-medium capitalize peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                           >
                             {property}
                           </label>
@@ -438,7 +438,7 @@ export default function Weapons({
         ))}
 
         {weapons.length === 0 && (
-          <div className="text-center py-8 text-slate-500">
+          <div className="py-8 text-center text-slate-500">
             <p>
               No weapons added yet.{" "}
               {!readOnly && "Add your first weapon below."}
@@ -454,7 +454,7 @@ export default function Weapons({
           </CardHeader>
           <CardContent>
             <div className="grid gap-4">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                 <div className="space-y-2">
                   <Label htmlFor="weapon-name">Name</Label>
                   <Input
@@ -575,7 +575,7 @@ export default function Weapons({
                 />
                 <label
                   htmlFor="weapon-proficient"
-                  className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                  className="text-sm leading-none font-medium peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                 >
                   Proficient with this weapon
                 </label>

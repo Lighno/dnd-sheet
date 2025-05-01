@@ -64,11 +64,11 @@ export default function Skills({
   return (
     <Card>
       <CardContent className="p-4">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
           {skillsList.map((skill) => (
             <div
               key={skill.name}
-              className="flex items-center justify-between p-2 border rounded-md"
+              className="flex items-center justify-between rounded-md border p-2"
             >
               <div className="flex items-center space-x-2">
                 <Checkbox
@@ -79,7 +79,7 @@ export default function Skills({
                 />
                 <label
                   htmlFor={skill.name}
-                  className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                  className="text-sm leading-none font-medium peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                 >
                   {skill.label}{" "}
                   <span className="text-slate-500">

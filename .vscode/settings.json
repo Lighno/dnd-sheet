@@ -28,5 +28,5 @@
     "typescriptreact"
   ],
   "typescript.tsdk": "node_modules/typescript/lib",
-  "eslint.onIgnoredFiles": "warn",
+  "eslint.onIgnoredFiles": "warn"
 }

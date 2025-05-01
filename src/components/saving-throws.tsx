@@ -57,7 +57,7 @@ export default function SavingThrowsComponent({
           {abilities.map((ability) => (
             <div
               key={ability.key}
-              className="flex items-center justify-between p-2 border rounded-md"
+              className="flex items-center justify-between rounded-md border p-2"
             >
               <div className="flex items-center space-x-2">
                 <Checkbox
@@ -68,7 +68,7 @@ export default function SavingThrowsComponent({
                 />
                 <label
                   htmlFor={`save-${ability.key}`}
-                  className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                  className="text-sm leading-none font-medium peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                 >
                   {ability.label}
                 </label>

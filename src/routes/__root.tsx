@@ -1,4 +1,5 @@
 import {
+  ErrorComponent,
   HeadContent,
   Outlet,
   Scripts,
@@ -6,9 +7,6 @@ import {
 } from "@tanstack/react-router";
 import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
 
-import { createServerFn } from "@tanstack/react-start";
-import { getAuth } from "@clerk/tanstack-react-start/server";
-import { getWebRequest } from "@tanstack/react-start/server";
 import Header from "../components/Header";
 
 import ClerkProvider from "../integrations/clerk/provider";
@@ -23,22 +21,7 @@ interface MyRouterContext {
   queryClient: QueryClient;
 }
 
-const fetchClerkAuth = createServerFn({ method: "GET" }).handler(async () => {
-  const { userId } = await getAuth(getWebRequest()!);
-
-  return {
-    userId,
-  };
-});
-
 export const Route = createRootRouteWithContext<MyRouterContext>()({
-  beforeLoad: async () => {
-    const { userId } = await fetchClerkAuth();
-
-    return {
-      userId,
-    };
-  },
   head: () => ({
     meta: [
       {
@@ -72,6 +55,7 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
       </ClerkProvider>
     </RootDocument>
   ),
+  errorComponent: ErrorComponent,
 });
 
 function RootDocument({ children }: { children: React.ReactNode }) {

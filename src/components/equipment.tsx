@@ -88,7 +88,7 @@ export default function Equipment({
 
   return (
     <div className="space-y-6">
-      <div className="flex justify-between items-center">
+      <div className="flex items-center justify-between">
         <h3 className="text-lg font-semibold">Equipment</h3>
         <div className="text-sm">
           Total Weight:{" "}

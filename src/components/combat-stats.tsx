@@ -132,7 +132,7 @@ export default function CombatStats({
               </div>
               <h3 className="text-lg font-bold">Hit Points</h3>
             </div>
-            <div className="text-2xl font-bold tabular-nums text-slate-700 dark:text-slate-200">
+            <div className="text-2xl font-bold text-slate-700 tabular-nums dark:text-slate-200">
               {combatStats.currentHp}
               <span className="mx-1 text-slate-400 dark:text-slate-500">/</span>
               {combatStats.maxHp}
@@ -213,7 +213,7 @@ export default function CombatStats({
                       }
                       disabled={readOnly}
                       className={cn(
-                        "flex h-8 w-8 items-center justify-center rounded-lg border-2 text-sm font-bold transition-colors",
+                        "flex h-8 w-8 cursor-pointer items-center justify-center rounded-lg border-2 text-sm font-bold transition-colors",
                         combatStats.hitDice.dieType === dieType
                           ? "border-primary bg-primary text-primary-foreground"
                           : "border-input bg-background hover:bg-accent hover:text-accent-foreground",

@@ -51,7 +51,7 @@ export default function AbilityScoreInput({
     <div className={cn("flex flex-col items-center", className)}>
       {/* Label */}
       {label && (
-        <span className="mb-1 text-sm font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300">
+        <span className="mb-1 text-sm font-semibold tracking-wider text-slate-700 uppercase dark:text-slate-300">
           {label}
         </span>
       )}
@@ -60,7 +60,7 @@ export default function AbilityScoreInput({
       <div className="group relative">
         {/* Outer decorative ring with runes */}
         <div
-          className="absolute inset-0 animate-spin-slow rounded-full border-2 border-slate-300 dark:border-slate-600"
+          className="animate-spin-slow absolute inset-0 rounded-full border-2 border-slate-300 dark:border-slate-600"
           style={{
             background: `conic-gradient(from 0deg, 
                  transparent 0deg, 
@@ -91,7 +91,7 @@ export default function AbilityScoreInput({
             min={min}
             max={max}
             readOnly={readOnly}
-            className="relative z-10 h-full w-full bg-transparent text-center text-4xl font-bold text-slate-900 outline-none transition-colors [-moz-appearance:_textfield] hover:text-slate-700 focus:text-slate-700 [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none dark:text-slate-100 dark:hover:text-slate-300 dark:focus:text-slate-300"
+            className="relative z-10 h-full w-full bg-transparent text-center text-4xl font-bold text-slate-900 transition-colors outline-none [-moz-appearance:_textfield] hover:text-slate-700 focus:text-slate-700 dark:text-slate-100 dark:hover:text-slate-300 dark:focus:text-slate-300 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
           />
 
           {/* Modifier display */}
@@ -104,7 +104,7 @@ export default function AbilityScoreInput({
             type="button"
             onClick={decrement}
             disabled={value <= min || readOnly}
-            className="absolute -left-3 z-20 flex h-8 w-8 items-center justify-center rounded-full border-2 border-slate-600 bg-slate-700 text-slate-100 opacity-0 shadow-md transition-all hover:bg-slate-600 disabled:cursor-not-allowed disabled:opacity-50 group-hover:opacity-100 dark:border-slate-400 dark:bg-slate-600 dark:hover:bg-slate-500"
+            className="absolute -left-3 z-20 flex h-8 w-8 items-center justify-center rounded-full border-2 border-slate-600 bg-slate-700 text-slate-100 opacity-0 shadow-md transition-all group-hover:opacity-100 hover:bg-slate-600 disabled:cursor-not-allowed disabled:opacity-50 dark:border-slate-400 dark:bg-slate-600 dark:hover:bg-slate-500"
             aria-label="Decrease value"
           >
             <Minus className="h-4 w-4" />
@@ -113,7 +113,7 @@ export default function AbilityScoreInput({
             type="button"
             onClick={increment}
             disabled={value >= max || readOnly}
-            className="absolute -right-3 z-20 flex h-8 w-8 items-center justify-center rounded-full border-2 border-slate-600 bg-slate-700 text-slate-100 opacity-0 shadow-md transition-all hover:bg-slate-600 disabled:cursor-not-allowed disabled:opacity-50 group-hover:opacity-100 dark:border-slate-400 dark:bg-slate-600 dark:hover:bg-slate-500"
+            className="absolute -right-3 z-20 flex h-8 w-8 items-center justify-center rounded-full border-2 border-slate-600 bg-slate-700 text-slate-100 opacity-0 shadow-md transition-all group-hover:opacity-100 hover:bg-slate-600 disabled:cursor-not-allowed disabled:opacity-50 dark:border-slate-400 dark:bg-slate-600 dark:hover:bg-slate-500"
             aria-label="Increase value"
           >
             <Plus className="h-4 w-4" />

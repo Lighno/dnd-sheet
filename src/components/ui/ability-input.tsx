@@ -57,23 +57,23 @@ export default function AbilityInput({
           type="button"
           onClick={decrement}
           disabled={value <= min || readOnly}
-          className="absolute left-0 flex h-8 w-8 -translate-x-8/10 items-center justify-center rounded-full border border-gray-300 bg-white text-gray-500 transition-colors hover:bg-gray-100 disabled:opacity-50 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 z-1"
+          className="absolute left-0 z-1 flex h-8 w-8 -translate-x-8/10 items-center justify-center rounded-full border border-gray-300 bg-white text-gray-500 transition-colors hover:bg-gray-100 disabled:opacity-50 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700"
           aria-label="Decrease value"
         >
           <Minus className="h-4 w-4" />
         </button>
 
         {/* Main circular input */}
-        <div className="relative flex h-16 w-16 items-center justify-center rounded-full border-2 border-amber-800 bg-amber-50 shadow-md dark:border-amber-700 dark:bg-gray-800 z-0">
+        <div className="relative z-0 flex h-16 w-16 items-center justify-center rounded-full border-2 border-amber-800 bg-amber-50 shadow-md dark:border-amber-700 dark:bg-gray-800">
           <input
             type="number"
             value={value}
             onChange={handleInputChange}
             min={min}
             max={max}
-            className="absolute inset-0 h-full w-full rounded-full bg-transparent text-center text-xl font-bold text-amber-900 outline-none [-moz-appearance:_textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none dark:text-amber-400"
+            className="absolute inset-0 h-full w-full rounded-full bg-transparent text-center text-xl font-bold text-amber-900 outline-none [-moz-appearance:textfield] dark:text-amber-400 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
           />
-          <div className="absolute inset-0 rounded-full border border-amber-600/20 bg-gradient-to-b from-amber-100/50 to-transparent dark:from-amber-900/30 dark:to-transparent" />
+          <div className="absolute inset-0 rounded-full border border-amber-600/20 bg-linear-to-b from-amber-100/50 to-transparent dark:from-amber-900/30 dark:to-transparent" />
         </div>
 
         {/* Plus button */}
@@ -81,7 +81,7 @@ export default function AbilityInput({
           type="button"
           onClick={increment}
           disabled={value >= max || readOnly}
-          className="absolute right-0 flex h-8 w-8 translate-x-8/10 items-center justify-center rounded-full border border-gray-300 bg-white text-gray-500 transition-colors hover:bg-gray-100 disabled:opacity-50 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 z-1"
+          className="absolute right-0 z-1 flex h-8 w-8 translate-x-8/10 items-center justify-center rounded-full border border-gray-300 bg-white text-gray-500 transition-colors hover:bg-gray-100 disabled:opacity-50 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700"
           aria-label="Increase value"
         >
           <Plus className="h-4 w-4" />

@@ -1,5 +1,6 @@
 import { createRouter as createTanstackRouter } from "@tanstack/react-router";
 import { routerWithQueryClient } from "@tanstack/react-router-with-query";
+import { DefaultCatchBoundary } from "./components/DefaultCatchBoundry";
 import * as TanstackQuery from "./integrations/tanstack-query/root-provider";
 
 // Import the generated route tree
@@ -17,12 +18,8 @@ export const createRouter = () => {
       },
       scrollRestoration: true,
       defaultPreloadStaleTime: 0,
-
-      Wrap: (props: { children: React.ReactNode }) => {
-        return (
-          <TanstackQuery.Provider>{props.children}</TanstackQuery.Provider>
-        );
-      },
+      defaultPreload: "intent",
+      defaultErrorComponent: DefaultCatchBoundary,
     }),
     TanstackQuery.getContext().queryClient,
   );

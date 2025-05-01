@@ -22,6 +22,19 @@
       "pathMapping": {
         "_build": "${workspaceFolder}"
       }
+    },
+    {
+      "name": "Launch Firefox",
+      "request": "launch",
+      "type": "firefox",
+      "url": "http://localhost:3000",
+      "firefoxExecutable": "/usr/bin/zen-browser",
+      "pathMappings": [
+        {
+          "source": "${workspaceFolder}",
+          "path": "_build"
+        }
+      ]
     }
   ]
 }

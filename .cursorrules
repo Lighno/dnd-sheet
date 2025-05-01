@@ -7,4 +7,6 @@ pnpx shadcn@latest add button
 ```
 
 # General instructions
+
 use ~/ as the base input for our code instead of the usual @/
+use tailwind v4

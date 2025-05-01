@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Eye, Pencil } from "lucide-react";
 import CharacterInfo from "./character-info";
 import AbilityScores from "./ability-scores";
@@ -9,87 +9,35 @@ import Spells from "./spells";
 import Features from "./features";
 import CombatStats from "./combat-stats";
 import Weapons from "./weapons";
-import type { Character } from "~/lib/character-data";
-import { defaultCharacter } from "~/lib/character-data";
 import { Label } from "~/components/ui/label";
 import { Switch } from "~/components/ui/switch";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs";
-import { calculateModifier } from "~/lib/utils";
-
-const STORAGE_KEY = "dnd-character";
+import { useCharacterStore } from "~/lib/stores/store-provider";
 
 export default function CharacterSheet() {
-  const [character, setCharacter] = useState<Character>(defaultCharacter);
   const [readOnly, setReadOnly] = useState(false);
 
-  // Load character data from localStorage on mount
-  useEffect(() => {
-    const savedCharacter = localStorage.getItem(STORAGE_KEY);
-    if (savedCharacter) {
-      try {
-        setCharacter(JSON.parse(savedCharacter));
-      } catch (e) {
-        console.error("Failed to parse saved character:", e);
-      }
-    }
-  }, []);
+  // Use our store selectors for optimal performance
+  const character = useCharacterStore((state) => state.character);
+  const { updateCharacter, updateLevel, setAbilityScore } = useCharacterStore(
+    (state) => ({
+      updateCharacter: state.updateCharacter,
+      updateLevel: state.updateLevel,
+      setAbilityScore: state.setAbilityScore,
+    }),
+  );
 
-  const updateCharacter = (updates: Partial<Character>) => {
+  const handleLevelChange = (value: number) => {
     if (readOnly) return;
-    setCharacter((prev) => {
-      const newCharacter = { ...prev, ...updates };
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(newCharacter));
-      return newCharacter;
-    });
+    updateLevel(value);
   };
 
-  const updateLevel = (value: number) => {
-    if (readOnly) return;
-    setCharacter((prev) => {
-      let newMaxHp = prev.combatStats.maxHp;
-      const conMod = calculateModifier(prev.abilityScores.constitution);
-      if (value > prev.level) {
-        newMaxHp =
-          prev.combatStats.maxHp +
-          prev.combatStats.hitDice.dieType / 2 +
-          1 +
-          conMod;
-      } else {
-        newMaxHp =
-          prev.combatStats.maxHp -
-          prev.combatStats.hitDice.dieType / 2 -
-          1 -
-          conMod;
-      }
-      return {
-        ...prev,
-        level: value,
-        combatStats: {
-          ...prev.combatStats,
-          maxHp: Math.max(newMaxHp, 1),
-          currentHp: Math.max(newMaxHp, 1),
-          hitDice: { ...prev.combatStats.hitDice, total: value },
-        },
-      };
-    });
-  };
-
-  const updateAbilityScore = (
+  const handleAbilityScoreChange = (
     ability: keyof typeof character.abilityScores,
     value: number,
   ) => {
     if (readOnly) return;
-    setCharacter((prev) => {
-      const newCharacter = {
-        ...prev,
-        abilityScores: {
-          ...prev.abilityScores,
-          [ability]: value,
-        },
-      };
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(newCharacter));
-      return newCharacter;
-    });
+    setAbilityScore(ability, value);
   };
 
   return (
@@ -116,7 +64,7 @@ export default function CharacterSheet() {
       <CharacterInfo
         character={character}
         updateCharacter={updateCharacter}
-        updateLevel={updateLevel}
+        updateLevel={handleLevelChange}
         readOnly={readOnly}
       />
 
@@ -145,7 +93,7 @@ export default function CharacterSheet() {
             savingThrows={character.savingThrows}
             skills={character.skills}
             proficiencyBonus={character.proficiencyBonus}
-            updateAbilityScore={updateAbilityScore}
+            updateAbilityScore={handleAbilityScoreChange}
             updateCharacter={updateCharacter}
             readOnly={readOnly}
           />
