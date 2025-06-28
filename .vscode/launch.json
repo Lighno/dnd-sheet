@@ -5,7 +5,7 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Launch via NPM",
+      "name": "Launch server",
       "request": "launch",
       "runtimeArgs": ["run-script", "dev"],
       "runtimeExecutable": "pnpm",
@@ -22,19 +22,6 @@
       "pathMapping": {
         "_build": "${workspaceFolder}"
       }
-    },
-    {
-      "name": "Launch Firefox",
-      "request": "launch",
-      "type": "firefox",
-      "url": "http://localhost:3000",
-      "firefoxExecutable": "/usr/bin/zen-browser",
-      "pathMappings": [
-        {
-          "source": "${workspaceFolder}",
-          "path": "_build"
-        }
-      ]
     }
   ]
 }
