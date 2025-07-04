@@ -28,5 +28,14 @@
     "typescriptreact"
   ],
   "typescript.tsdk": "node_modules/typescript/lib",
-  "eslint.onIgnoredFiles": "warn"
+  "eslint.onIgnoredFiles": "warn",
+  "cSpell.words": [
+    "Consolas",
+    "esbuild",
+    "Fira",
+    "Neue",
+    "Roboto",
+    "Segoe",
+    "vinxi"
+  ]
 }

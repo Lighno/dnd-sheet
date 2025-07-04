@@ -8,16 +8,21 @@ import { calculateModifier } from "~/lib/utils";
 interface CharacterState {
   character: Character;
 }
-
+type StoreUpdates<T = Character> =
+  | T
+  | Partial<T>
+  | ((prev: T) => T | Partial<T>);
 interface CharacterActions {
   // Full character updates
   setCharacter: (character: Character) => void;
   resetCharacter: () => void;
 
   // Partial updates
-  updateCharacter: (updates: Partial<Character>) => void;
-  updateAbilityScores: (updates: Partial<Character["abilityScores"]>) => void;
-  updateCombatStats: (updates: Partial<Character["combatStats"]>) => void;
+  updateCharacter: (updates: StoreUpdates<Character>) => void;
+  updateAbilityScores: (
+    updates: StoreUpdates<Character["abilityScores"]>,
+  ) => void;
+  updateCombatStats: (updates: StoreUpdates<Character["combatStats"]>) => void;
 
   // Level management
   updateLevel: (newLevel: number) => void;
@@ -31,7 +36,6 @@ interface CharacterActions {
   // Combat specific actions
   modifyHp: (amount: number) => void;
   setTemporaryHp: (amount: number) => void;
-  useHitDie: () => void;
 
   // Equipment management
   addWeapon: (weapon: Character["weapons"][number]) => void;
@@ -67,27 +71,36 @@ export const createCharacterStore = (
               state.character = defaultCharacter;
             }),
 
-          updateCharacter: (updates: Partial<Character>) =>
+          updateCharacter: (updates) =>
             set((state) => {
+              if (typeof updates === "function") {
+                updates = updates(state.character);
+              }
               state.character = { ...state.character, ...updates };
             }),
 
-          updateAbilityScores: (updates: Partial<Character["abilityScores"]>) =>
+          updateAbilityScores: (updates) =>
             set((state) => {
+              if (typeof updates === "function") {
+                updates = updates(state.character.abilityScores);
+              }
               state.character.abilityScores = {
                 ...state.character.abilityScores,
                 ...updates,
               };
             }),
 
-          updateCombatStats: (updates: Partial<Character["combatStats"]>) =>
-            set((state) => {
-              state.character.combatStats = {
-                ...state.character.combatStats,
+          updateCombatStats: (updates) => {
+            set((prev) => {
+              if (typeof updates === "function") {
+                updates = updates(prev.character.combatStats);
+              }
+              prev.character.combatStats = {
+                ...prev.character.combatStats,
                 ...updates,
               };
-            }),
-
+            });
+          },
           // New encapsulated level update logic
           updateLevel: (newLevel: number) =>
             set((state) => {
@@ -151,16 +164,6 @@ export const createCharacterStore = (
           setTemporaryHp: (amount: number) =>
             set((state) => {
               state.character.combatStats.temporaryHp = Math.max(0, amount);
-            }),
-
-          useHitDie: () =>
-            set((state) => {
-              if (
-                state.character.combatStats.hitDice.used <
-                state.character.combatStats.hitDice.total
-              ) {
-                state.character.combatStats.hitDice.used += 1;
-              }
             }),
 
           addWeapon: (weapon: Character["weapons"][number]) =>

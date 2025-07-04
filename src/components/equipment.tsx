@@ -1,6 +1,6 @@
 import { PlusCircle, Trash2 } from "lucide-react";
 import { useState } from "react";
-import type { Character, EquipmentItem } from "~/lib/character-data";
+import type { EquipmentItem } from "~/lib/character-data";
 import { Button } from "~/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "~/components/ui/card";
 import { Input } from "~/components/ui/input";
@@ -13,17 +13,18 @@ import {
   SelectValue,
 } from "~/components/ui/select";
 import { Textarea } from "~/components/ui/textarea";
+import { useCharacterStore } from "~/lib/stores/store-provider";
 
 interface EquipmentProps {
-  equipment: Array<EquipmentItem>;
-  updateCharacter: (updates: Partial<Character>) => void;
   readOnly: boolean;
 }
 
-export default function Equipment({
-  equipment,
-  updateCharacter,
-}: EquipmentProps) {
+export default function Equipment({ readOnly = false }: EquipmentProps) {
+  const { equipment, updateCharacter } = useCharacterStore((state) => ({
+    equipment: state.character.equipment,
+    updateCharacter: state.updateCharacter,
+  }));
+
   const [newItem, setNewItem] = useState<EquipmentItem>({
     id: "",
     name: "",
@@ -35,6 +36,7 @@ export default function Equipment({
   });
 
   const addItem = () => {
+    if (readOnly) return;
     if (!newItem.name) return;
 
     const item = {
@@ -58,6 +60,7 @@ export default function Equipment({
   };
 
   const removeItem = (id: string) => {
+    if (readOnly) return;
     updateCharacter({
       equipment: equipment.filter((item) => item.id !== id),
     });

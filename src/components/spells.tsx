@@ -2,7 +2,7 @@
 
 import { PlusCircle, Trash2 } from "lucide-react";
 import { useState } from "react";
-import type { Character, Spell, SpellSlots } from "~/lib/character-data";
+import type { Spell, SpellSlots } from "~/lib/character-data";
 import { Button } from "~/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "~/components/ui/card";
 import { Input } from "~/components/ui/input";
@@ -16,20 +16,21 @@ import {
 } from "~/components/ui/select";
 import { Textarea } from "~/components/ui/textarea";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs";
+import { useCharacterStore } from "~/lib/stores/store-provider";
 
 interface SpellsProps {
-  spells: Array<Spell>;
-  spellSlots: SpellSlots;
-  updateCharacter: (updates: Partial<Character>) => void;
   readOnly: boolean;
 }
 
-export default function Spells({
-  spells,
-  spellSlots,
-  updateCharacter,
-  readOnly,
-}: SpellsProps) {
+export default function Spells({ readOnly = false }: SpellsProps) {
+  const { spells, spellSlots, updateCharacter } = useCharacterStore(
+    (state) => ({
+      spells: state.character.spells,
+      spellSlots: state.character.spellSlots,
+      updateCharacter: state.updateCharacter,
+    }),
+  );
+
   const [newSpell, setNewSpell] = useState<Spell>({
     id: "",
     name: "",

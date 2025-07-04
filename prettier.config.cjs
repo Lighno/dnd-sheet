@@ -1,13 +1,11 @@
-//  @ts-check
-import * as tailwindcss from "prettier-plugin-tailwindcss";
+/* eslint-disable no-undef */
+// @ts-check
 
 /** @type {import('prettier').Config} */
-const config = {
+module.exports = {
   semi: true,
   singleQuote: false,
   trailingComma: "all",
-  plugins: [tailwindcss],
+  plugins: ["prettier-plugin-tailwindcss"],
   tailwindPreserveWhitespace: true,
 };
-
-export default config;

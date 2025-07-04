@@ -8,7 +8,7 @@ export default tseslint.config(
   eslint.configs.recommended,
   tseslint.configs.recommended,
   {
-    ignores: ["**/node_modules/**", "**/dist/**", "**/build/**", "**/.next/**"],
+    ignores: ["**/node_modules/**", "**/dist/**", "**/build/**", "**/.next/**", "prettier.config.js"],
     rules: {},
   },
   reactHooks.configs["recommended-latest"],

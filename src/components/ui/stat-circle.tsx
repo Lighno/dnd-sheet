@@ -9,7 +9,7 @@ interface StatCircleProps {
   step?: number;
   min?: number;
   max?: number;
-  onChange: (value: number) => void;
+  onChange?: (value: number) => void;
   label?: string;
   sublabel?: string;
   readOnly?: boolean;
@@ -31,13 +31,13 @@ export default function StatCircle({
 }: StatCircleProps) {
   const increment = () => {
     if (!max || value < max) {
-      onChange(value + step);
+      onChange?.(value + step);
     }
   };
 
   const decrement = () => {
     if (value > min) {
-      onChange(value - step);
+      onChange?.(value - step);
     }
   };
 
@@ -45,7 +45,7 @@ export default function StatCircle({
     if (readOnly) return;
     const newValue = Number.parseInt(e.target.value) || 0;
     if (newValue >= min && (!max || newValue <= max)) {
-      onChange(newValue);
+      onChange?.(newValue);
     }
   };
 

@@ -10,111 +10,111 @@
 
 // Import Routes
 
-import { Route as rootRoute } from "./routes/__root";
-import { Route as TestImport } from "./routes/test";
-import { Route as SheetImport } from "./routes/sheet";
-import { Route as IndexImport } from "./routes/index";
-import { Route as DemoClerkImport } from "./routes/demo.clerk";
+import { Route as rootRoute } from './routes/__root'
+import { Route as TestImport } from './routes/test'
+import { Route as SheetImport } from './routes/sheet'
+import { Route as IndexImport } from './routes/index'
+import { Route as DemoClerkImport } from './routes/demo.clerk'
 
 // Create/Update Routes
 
 const TestRoute = TestImport.update({
-  id: "/test",
-  path: "/test",
+  id: '/test',
+  path: '/test',
   getParentRoute: () => rootRoute,
-} as any);
+} as any)
 
 const SheetRoute = SheetImport.update({
-  id: "/sheet",
-  path: "/sheet",
+  id: '/sheet',
+  path: '/sheet',
   getParentRoute: () => rootRoute,
-} as any);
+} as any)
 
 const IndexRoute = IndexImport.update({
-  id: "/",
-  path: "/",
+  id: '/',
+  path: '/',
   getParentRoute: () => rootRoute,
-} as any);
+} as any)
 
 const DemoClerkRoute = DemoClerkImport.update({
-  id: "/demo/clerk",
-  path: "/demo/clerk",
+  id: '/demo/clerk',
+  path: '/demo/clerk',
   getParentRoute: () => rootRoute,
-} as any);
+} as any)
 
 // Populate the FileRoutesByPath interface
 
-declare module "@tanstack/react-router" {
+declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    "/": {
-      id: "/";
-      path: "/";
-      fullPath: "/";
-      preLoaderRoute: typeof IndexImport;
-      parentRoute: typeof rootRoute;
-    };
-    "/sheet": {
-      id: "/sheet";
-      path: "/sheet";
-      fullPath: "/sheet";
-      preLoaderRoute: typeof SheetImport;
-      parentRoute: typeof rootRoute;
-    };
-    "/test": {
-      id: "/test";
-      path: "/test";
-      fullPath: "/test";
-      preLoaderRoute: typeof TestImport;
-      parentRoute: typeof rootRoute;
-    };
-    "/demo/clerk": {
-      id: "/demo/clerk";
-      path: "/demo/clerk";
-      fullPath: "/demo/clerk";
-      preLoaderRoute: typeof DemoClerkImport;
-      parentRoute: typeof rootRoute;
-    };
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexImport
+      parentRoute: typeof rootRoute
+    }
+    '/sheet': {
+      id: '/sheet'
+      path: '/sheet'
+      fullPath: '/sheet'
+      preLoaderRoute: typeof SheetImport
+      parentRoute: typeof rootRoute
+    }
+    '/test': {
+      id: '/test'
+      path: '/test'
+      fullPath: '/test'
+      preLoaderRoute: typeof TestImport
+      parentRoute: typeof rootRoute
+    }
+    '/demo/clerk': {
+      id: '/demo/clerk'
+      path: '/demo/clerk'
+      fullPath: '/demo/clerk'
+      preLoaderRoute: typeof DemoClerkImport
+      parentRoute: typeof rootRoute
+    }
   }
 }
 
 // Create and export the route tree
 
 export interface FileRoutesByFullPath {
-  "/": typeof IndexRoute;
-  "/sheet": typeof SheetRoute;
-  "/test": typeof TestRoute;
-  "/demo/clerk": typeof DemoClerkRoute;
+  '/': typeof IndexRoute
+  '/sheet': typeof SheetRoute
+  '/test': typeof TestRoute
+  '/demo/clerk': typeof DemoClerkRoute
 }
 
 export interface FileRoutesByTo {
-  "/": typeof IndexRoute;
-  "/sheet": typeof SheetRoute;
-  "/test": typeof TestRoute;
-  "/demo/clerk": typeof DemoClerkRoute;
+  '/': typeof IndexRoute
+  '/sheet': typeof SheetRoute
+  '/test': typeof TestRoute
+  '/demo/clerk': typeof DemoClerkRoute
 }
 
 export interface FileRoutesById {
-  __root__: typeof rootRoute;
-  "/": typeof IndexRoute;
-  "/sheet": typeof SheetRoute;
-  "/test": typeof TestRoute;
-  "/demo/clerk": typeof DemoClerkRoute;
+  __root__: typeof rootRoute
+  '/': typeof IndexRoute
+  '/sheet': typeof SheetRoute
+  '/test': typeof TestRoute
+  '/demo/clerk': typeof DemoClerkRoute
 }
 
 export interface FileRouteTypes {
-  fileRoutesByFullPath: FileRoutesByFullPath;
-  fullPaths: "/" | "/sheet" | "/test" | "/demo/clerk";
-  fileRoutesByTo: FileRoutesByTo;
-  to: "/" | "/sheet" | "/test" | "/demo/clerk";
-  id: "__root__" | "/" | "/sheet" | "/test" | "/demo/clerk";
-  fileRoutesById: FileRoutesById;
+  fileRoutesByFullPath: FileRoutesByFullPath
+  fullPaths: '/' | '/sheet' | '/test' | '/demo/clerk'
+  fileRoutesByTo: FileRoutesByTo
+  to: '/' | '/sheet' | '/test' | '/demo/clerk'
+  id: '__root__' | '/' | '/sheet' | '/test' | '/demo/clerk'
+  fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute;
-  SheetRoute: typeof SheetRoute;
-  TestRoute: typeof TestRoute;
-  DemoClerkRoute: typeof DemoClerkRoute;
+  IndexRoute: typeof IndexRoute
+  SheetRoute: typeof SheetRoute
+  TestRoute: typeof TestRoute
+  DemoClerkRoute: typeof DemoClerkRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
@@ -122,11 +122,11 @@ const rootRouteChildren: RootRouteChildren = {
   SheetRoute: SheetRoute,
   TestRoute: TestRoute,
   DemoClerkRoute: DemoClerkRoute,
-};
+}
 
 export const routeTree = rootRoute
   ._addFileChildren(rootRouteChildren)
-  ._addFileTypes<FileRouteTypes>();
+  ._addFileTypes<FileRouteTypes>()
 
 /* ROUTE_MANIFEST_START
 {

@@ -15,7 +15,14 @@ export default function Header() {
         </div>
 
         <div className="px-2 font-bold">
-          <Link to="/sheet">Sheet</Link>
+          <Link
+            to="/sheet"
+            search={(old) => ({
+              section: old.section ?? "abilities",
+            })}
+          >
+            Sheet
+          </Link>
         </div>
 
         <div className="px-2 font-bold">

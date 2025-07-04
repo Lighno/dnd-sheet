@@ -20,4 +20,9 @@ export default defineConfig({
       plugins: [["babel-plugin-react-compiler", {}]],
     },
   },
+  server: {
+    prerender: {
+      routes: ["/", "/sheet/"],
+    },
+  },
 });

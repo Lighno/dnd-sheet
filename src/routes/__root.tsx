@@ -8,6 +8,7 @@ import {
 import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
 
 import Header from "../components/Header";
+import NotFound from "../components/NotFound";
 
 import ClerkProvider from "../integrations/clerk/provider";
 
@@ -56,6 +57,7 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
     </RootDocument>
   ),
   errorComponent: ErrorComponent,
+  notFoundComponent: NotFound,
 });
 
 function RootDocument({ children }: { children: React.ReactNode }) {

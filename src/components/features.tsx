@@ -1,23 +1,24 @@
 import { PlusCircle, Trash2 } from "lucide-react";
 import { useState } from "react";
-import type { Character, Feature } from "~/lib/character-data";
+import ReactMarkdown from "react-markdown";
+import type { Feature } from "~/lib/character-data";
 import { Button } from "~/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "~/components/ui/card";
 import { Input } from "~/components/ui/input";
 import { Label } from "~/components/ui/label";
 import { Textarea } from "~/components/ui/textarea";
+import { useCharacterStore } from "~/lib/stores/store-provider";
 
 interface FeaturesProps {
-  features: Array<Feature>;
-  updateCharacter: (updates: Partial<Character>) => void;
   readOnly?: boolean;
 }
 
-export default function Features({
-  features,
-  updateCharacter,
-  readOnly = false,
-}: FeaturesProps) {
+export default function Features({ readOnly = false }: FeaturesProps) {
+  const { updateCharacter, features } = useCharacterStore((state) => ({
+    updateCharacter: state.updateCharacter,
+    features: state.character.features,
+  }));
+
   const [newFeature, setNewFeature] = useState<Feature>({
     id: "",
     name: "",
@@ -74,7 +75,9 @@ export default function Features({
               )}
             </CardHeader>
             <CardContent>
-              <p className="text-sm">{feature.description}</p>
+              <div className="prose prose-sm dark:prose-invert">
+                <ReactMarkdown>{feature.description}</ReactMarkdown>
+              </div>
             </CardContent>
           </Card>
         ))}
@@ -120,7 +123,9 @@ export default function Features({
                 </div>
               </div>
               <div className="space-y-2">
-                <Label htmlFor="feature-description">Description</Label>
+                <Label htmlFor="feature-description">
+                  Description (Markdown supported)
+                </Label>
                 <Textarea
                   id="feature-description"
                   value={newFeature.description}
@@ -131,6 +136,7 @@ export default function Features({
                     })
                   }
                   rows={3}
+                  placeholder="You can use Markdown formatting here (e.g. **bold**, *italic*, - lists)"
                 />
               </div>
               <Button onClick={addFeature} className="w-full">

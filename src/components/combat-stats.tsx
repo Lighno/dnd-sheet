@@ -1,59 +1,49 @@
 "use client";
 
 import { Footprints, Heart, Shield, Zap } from "lucide-react";
-import type {
-  AbilityScores,
-  Character,
-  CombatStats as CombatStatsType,
-} from "~/lib/character-data";
+import type { CombatStats as CombatStatsType } from "~/lib/character-data";
 import { Card, CardContent } from "~/components/ui/card";
 import { Label } from "~/components/ui/label";
 import { Progress } from "~/components/ui/progress";
 import { calculateModifier, cn } from "~/lib/utils";
 import StatCircle from "~/components/ui/stat-circle";
+import { useCharacterStore } from "~/lib/stores/store-provider";
 
 interface CombatStatsProps {
-  combatStats: CombatStatsType;
-  abilityScores: AbilityScores;
-  level: number;
-  updateCharacter: (updates: Partial<Character>) => void;
   readOnly?: boolean;
 }
 
-export default function CombatStats({
-  combatStats,
-  abilityScores,
-  level,
-  updateCharacter,
-  readOnly = false,
-}: CombatStatsProps) {
-  const updateCombatStat = (
-    key: keyof CombatStatsType,
-    value: number | string,
+export default function CombatStats({ readOnly = false }: CombatStatsProps) {
+  const { updateCombatStats } = useCharacterStore((state) => ({
+    updateCombatStats: state.updateCombatStats,
+  }));
+  const { abilityScores, combatStats, level } = useCharacterStore((state) => ({
+    abilityScores: state.character.abilityScores,
+    combatStats: state.character.combatStats,
+    level: state.character.level,
+  }));
+
+  const updateCombatStat = <T extends keyof CombatStatsType>(
+    key: T,
+    value: CombatStatsType[T],
   ) => {
     if (readOnly) return;
-    updateCharacter({
-      combatStats: {
-        ...combatStats,
-        [key]: value,
-      },
+    updateCombatStats({
+      [key]: value,
     });
   };
 
-  const updateHitDice = (
-    key: keyof CombatStatsType["hitDice"],
-    value: number | string,
+  const updateHitDice = <T extends keyof CombatStatsType["hitDice"]>(
+    key: T,
+    value: CombatStatsType["hitDice"][T],
   ) => {
     if (readOnly) return;
-    updateCharacter({
-      combatStats: {
-        ...combatStats,
-        hitDice: {
-          ...combatStats.hitDice,
-          [key]: value,
-        },
+    updateCombatStats((prev) => ({
+      hitDice: {
+        ...prev.hitDice,
+        [key]: value,
       },
-    });
+    }));
   };
 
   const dexModifier = calculateModifier(abilityScores.dexterity);
@@ -63,21 +53,11 @@ export default function CombatStats({
   );
 
   const handleACChange = (value: number) => {
-    updateCharacter({
-      combatStats: {
-        ...combatStats,
-        armorClass: value,
-      },
-    });
+    updateCombatStat("armorClass", value);
   };
 
   const handleSpeedChange = (value: number) => {
-    updateCharacter({
-      combatStats: {
-        ...combatStats,
-        speed: value,
-      },
-    });
+    updateCombatStat("speed", value);
   };
 
   return (
@@ -85,7 +65,7 @@ export default function CombatStats({
       {/* Core Combat Stats */}
       <div className="flex flex-row items-start justify-between gap-4 rounded-lg border border-slate-200 bg-white p-4 dark:border-slate-800 dark:bg-slate-900">
         {/* AC */}
-        <div className="flex items-start gap-4">
+        <div className="flex items-start">
           <Shield className="mt-1 h-5 w-5 text-slate-700 dark:text-slate-300" />
           <StatCircle
             value={combatStats.armorClass}
@@ -96,11 +76,10 @@ export default function CombatStats({
         </div>
 
         {/* Initiative */}
-        <div className="flex items-start gap-4">
+        <div className="flex items-start">
           <Zap className="mt-1 h-5 w-5 text-slate-700 dark:text-slate-300" />
           <StatCircle
             value={dexModifier}
-            onChange={() => {}}
             label="Initiative"
             sublabel="Based on DEX modifier"
             readOnly={true}
@@ -109,7 +88,7 @@ export default function CombatStats({
         </div>
 
         {/* Speed */}
-        <div className="flex items-start gap-4">
+        <div className="flex items-start  ">
           <Footprints className="mt-1 h-5 w-5 text-slate-700 dark:text-slate-300" />
           <StatCircle
             value={combatStats.speed}

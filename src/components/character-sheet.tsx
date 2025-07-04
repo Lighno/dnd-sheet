@@ -1,9 +1,11 @@
 "use client";
 
 import { useState } from "react";
+import { getRouteApi } from "@tanstack/react-router";
 import { Eye, Pencil } from "lucide-react";
 import CharacterInfo from "./character-info";
 import AbilityScores from "./ability-scores";
+import AbilityScoreRow from "./ability-score-row";
 import Equipment from "./equipment";
 import Spells from "./spells";
 import Features from "./features";
@@ -12,33 +14,13 @@ import Weapons from "./weapons";
 import { Label } from "~/components/ui/label";
 import { Switch } from "~/components/ui/switch";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs";
-import { useCharacterStore } from "~/lib/stores/store-provider";
+
+const route = getRouteApi("/sheet");
 
 export default function CharacterSheet() {
   const [readOnly, setReadOnly] = useState(false);
-
-  // Use our store selectors for optimal performance
-  const character = useCharacterStore((state) => state.character);
-  const { updateCharacter, updateLevel, setAbilityScore } = useCharacterStore(
-    (state) => ({
-      updateCharacter: state.updateCharacter,
-      updateLevel: state.updateLevel,
-      setAbilityScore: state.setAbilityScore,
-    }),
-  );
-
-  const handleLevelChange = (value: number) => {
-    if (readOnly) return;
-    updateLevel(value);
-  };
-
-  const handleAbilityScoreChange = (
-    ability: keyof typeof character.abilityScores,
-    value: number,
-  ) => {
-    if (readOnly) return;
-    setAbilityScore(ability, value);
-  };
+  const { section } = route.useSearch();
+  const navigate = route.useNavigate();
 
   return (
     <div className="rounded-lg border border-slate-200 bg-white shadow-lg dark:border-slate-800 dark:bg-slate-950">
@@ -61,77 +43,63 @@ export default function CharacterSheet() {
         </div>
       </div>
 
-      <CharacterInfo
-        character={character}
-        updateCharacter={updateCharacter}
-        updateLevel={handleLevelChange}
-        readOnly={readOnly}
-      />
+      <CharacterInfo readOnly={readOnly} />
 
       <div className="border-b border-slate-200 p-4 dark:border-slate-800">
-        <CombatStats
-          combatStats={character.combatStats}
-          abilityScores={character.abilityScores}
-          level={character.level}
-          updateCharacter={updateCharacter}
-          readOnly={readOnly}
-        />
+        <CombatStats readOnly={readOnly} />
+        <div className="mt-6">
+          <AbilityScoreRow readOnly={readOnly} />
+        </div>
       </div>
 
-      <Tabs defaultValue="abilities" className="p-4">
+      <Tabs
+        value={section}
+        onValueChange={(value) =>
+          navigate({
+            search: {
+              section: value as typeof section,
+            },
+            resetScroll: false,
+          })
+        }
+        className="p-4"
+      >
         <TabsList className="grid w-full grid-cols-5">
-          <TabsTrigger value="abilities">Abilities & Skills</TabsTrigger>
-          <TabsTrigger value="combat">Combat</TabsTrigger>
-          <TabsTrigger value="features">Features</TabsTrigger>
-          <TabsTrigger value="equipment">Equipment</TabsTrigger>
-          <TabsTrigger value="spells">Spells</TabsTrigger>
+          <TabsTrigger value="abilities" className="cursor-pointer">
+            Abilities & Skills
+          </TabsTrigger>
+          <TabsTrigger value="combat" className="cursor-pointer">
+            Combat
+          </TabsTrigger>
+          <TabsTrigger value="features" className="cursor-pointer">
+            Features
+          </TabsTrigger>
+          <TabsTrigger value="equipment" className="cursor-pointer">
+            Equipment
+          </TabsTrigger>
+          <TabsTrigger value="spells" className="cursor-pointer">
+            Spells
+          </TabsTrigger>
         </TabsList>
 
         <TabsContent value="abilities" className="mt-4">
-          <AbilityScores
-            abilityScores={character.abilityScores}
-            savingThrows={character.savingThrows}
-            skills={character.skills}
-            proficiencyBonus={character.proficiencyBonus}
-            updateAbilityScore={handleAbilityScoreChange}
-            updateCharacter={updateCharacter}
-            readOnly={readOnly}
-          />
+          <AbilityScores readOnly={readOnly} />
         </TabsContent>
 
         <TabsContent value="combat" className="mt-4">
-          <Weapons
-            weapons={character.weapons}
-            abilityScores={character.abilityScores}
-            proficiencyBonus={character.proficiencyBonus}
-            updateCharacter={updateCharacter}
-            readOnly={readOnly}
-          />
+          <Weapons readOnly={readOnly} />
         </TabsContent>
 
         <TabsContent value="features" className="mt-4">
-          <Features
-            features={character.features}
-            updateCharacter={updateCharacter}
-            readOnly={readOnly}
-          />
+          <Features readOnly={readOnly} />
         </TabsContent>
 
         <TabsContent value="equipment" className="mt-4">
-          <Equipment
-            equipment={character.equipment}
-            updateCharacter={updateCharacter}
-            readOnly={readOnly}
-          />
+          <Equipment readOnly={readOnly} />
         </TabsContent>
 
         <TabsContent value="spells" className="mt-4">
-          <Spells
-            spells={character.spells}
-            spellSlots={character.spellSlots}
-            updateCharacter={updateCharacter}
-            readOnly={readOnly}
-          />
+          <Spells readOnly={readOnly} />
         </TabsContent>
       </Tabs>
     </div>

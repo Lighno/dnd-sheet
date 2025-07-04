@@ -1,4 +1,3 @@
-import type { Character } from "~/lib/character-data";
 import { Input } from "~/components/ui/input";
 import { Label } from "~/components/ui/label";
 import {
@@ -8,20 +7,21 @@ import {
   SelectTrigger,
   SelectValue,
 } from "~/components/ui/select";
+import { useCharacterStore } from "~/lib/stores/store-provider";
 
 interface CharacterInfoProps {
-  character: Character;
-  updateCharacter: (updates: Partial<Character>) => void;
-  updateLevel: (value: number) => void;
   readOnly?: boolean;
 }
 
 export default function CharacterInfo({
-  character,
-  updateCharacter,
-  updateLevel,
   readOnly = false,
 }: CharacterInfoProps) {
+  const character = useCharacterStore((state) => state.character);
+  const { updateCharacter, updateLevel } = useCharacterStore((state) => ({
+    updateCharacter: state.updateCharacter,
+    updateLevel: state.updateLevel,
+  }));
+
   return (
     <div className="border-b border-slate-200 p-4 dark:border-slate-800">
       <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
@@ -51,6 +51,7 @@ export default function CharacterInfo({
                 <SelectValue placeholder="Select class" />
               </SelectTrigger>
               <SelectContent>
+                <SelectItem value="artificer">Artificer</SelectItem>
                 <SelectItem value="barbarian">Barbarian</SelectItem>
                 <SelectItem value="bard">Bard</SelectItem>
                 <SelectItem value="cleric">Cleric</SelectItem>

@@ -21,25 +21,17 @@ import {
   Swords,
   Wind,
 } from "lucide-react";
-import AbilityScoreInput from "./ui/ability-score-input";
 import type {
   AbilityScores as AbilityScoresType,
-  Character,
   SavingThrows,
   Skill,
 } from "~/lib/character-data";
 import { Card, CardContent } from "~/components/ui/card";
 import { Checkbox } from "~/components/ui/checkbox";
 import { calculateModifier } from "~/lib/utils";
-import { Separator } from "~/components/ui/separator";
+import { useCharacterStore } from "~/lib/stores/store-provider";
 
 interface AbilityScoresProps {
-  abilityScores: AbilityScoresType;
-  savingThrows: SavingThrows;
-  skills: Record<Skill, boolean>;
-  proficiencyBonus: number;
-  updateAbilityScore: (ability: keyof AbilityScoresType, value: number) => void;
-  updateCharacter: (updates: Partial<Character>) => void;
   readOnly?: boolean;
 }
 
@@ -77,12 +69,6 @@ const skillsByAbility: Record<
 };
 
 export default function AbilityScores({
-  abilityScores,
-  savingThrows,
-  skills,
-  proficiencyBonus,
-  updateAbilityScore,
-  updateCharacter,
   readOnly = false,
 }: AbilityScoresProps) {
   const abilities = [
@@ -93,6 +79,20 @@ export default function AbilityScores({
     { key: "wisdom" as const, label: "Wisdom", abbr: "WIS" },
     { key: "charisma" as const, label: "Charisma", abbr: "CHA" },
   ];
+
+  const {
+    abilityScores,
+    savingThrows,
+    skills,
+    proficiencyBonus,
+    updateCharacter,
+  } = useCharacterStore((state) => ({
+    abilityScores: state.character.abilityScores,
+    savingThrows: state.character.savingThrows,
+    skills: state.character.skills,
+    proficiencyBonus: state.character.proficiencyBonus,
+    updateCharacter: state.updateCharacter,
+  }));
 
   const toggleSavingThrowProficiency = (ability: keyof SavingThrows) => {
     if (readOnly) return;
@@ -127,9 +127,14 @@ export default function AbilityScores({
   };
 
   return (
-    <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-      {abilities.map((ability) => (
-        <Card key={ability.key} className="overflow-hidden">
+    <div className="grid grid-cols-1 gap-4 md:grid-cols-3 lg:grid-cols-4">
+      {abilities.map((ability, idx) => (
+        <Card
+          key={ability.key}
+          className={`overflow-hidden ${
+            idx === 4 ? "lg:col-start-2" : idx === 5 ? "lg:col-start-3" : ""
+          }`}
+        >
           <div className="bg-slate-100 p-2 text-center dark:bg-slate-800">
             <div className="flex items-center justify-center gap-2">
               <h3 className="font-bold">{ability.abbr}</h3>
@@ -139,16 +144,6 @@ export default function AbilityScores({
             </p>
           </div>
           <CardContent className="p-4">
-            <div className="flex flex-col items-center">
-              <AbilityScoreInput
-                value={abilityScores[ability.key]}
-                onChange={(value) => updateAbilityScore(ability.key, value)}
-                readOnly={readOnly}
-              />
-            </div>
-
-            <Separator className="my-4" />
-
             {/* Saving Throws */}
             <div className="mb-4">
               <div className="flex items-center justify-between rounded-md border p-2">
