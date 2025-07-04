@@ -7,9 +7,14 @@
     {
       "name": "Launch App",
       "request": "launch",
-      "runtimeArgs": ["run-script", "dev"],
+      "runtimeArgs": [
+        "run-script",
+        "dev"
+      ],
       "runtimeExecutable": "pnpm",
-      "skipFiles": ["<node_internals>/**"],
+      "skipFiles": [
+        "<node_internals>/**"
+      ],
       "envFile": "${workspaceFolder}/.env.local",
       "type": "node",
       "console": "integratedTerminal"
@@ -22,19 +27,6 @@
       "pathMapping": {
         "_build": "${workspaceFolder}"
       }
-    },
-    {
-      "name": "Launch Firefox",
-      "request": "launch",
-      "type": "firefox",
-      "url": "http://localhost:3000",
-      "firefoxExecutable": "/usr/bin/zen-browser",
-      "pathMappings": [
-        {
-          "source": "${workspaceFolder}",
-          "path": "_build"
-        }
-      ]
     }
   ]
 }

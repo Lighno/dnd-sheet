@@ -29,6 +29,8 @@
   ],
   "typescript.tsdk": "node_modules/typescript/lib",
   "eslint.onIgnoredFiles": "warn",
+  "prettier.requireConfig": true,
+  "prettier.configPath": "./prettier.config.js",
   "cSpell.words": [
     "Consolas",
     "esbuild",

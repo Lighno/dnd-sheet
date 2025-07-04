@@ -6,3 +6,6 @@ dist-ssr
 *.local
 .output
 .vinxi
+
+# Local Netlify folder
+.netlify

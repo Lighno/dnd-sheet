@@ -233,6 +233,7 @@ export const createCharacterStore = (
           name: "dnd-character-storage",
           storage: createJSONStorage(() => localStorage),
           partialize: (state) => ({ character: state.character }),
+          version: 1,
         },
       ),
     ),
