@@ -29,9 +29,12 @@
   "eslint.onIgnoredFiles": "warn",
   "cSpell.words": [
     "Darkvision",
+    "dragonborn",
+    "halfling",
     "Longsword",
     "nums",
     "Spellcasting",
-    "sublabel"
+    "sublabel",
+    "tiefling"
   ]
 }
