@@ -1,7 +1,7 @@
 onlyBuiltDependencies:
-  - '@clerk/shared'
-  - '@parcel/watcher'
-  - '@tailwindcss/oxide'
+  - "@clerk/shared"
+  - "@parcel/watcher"
+  - "@tailwindcss/oxide"
   - esbuild
   - netlify-cli
   - sharp

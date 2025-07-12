@@ -233,6 +233,25 @@ export const createCharacterStore = (
           name: "dnd-character-storage",
           storage: createJSONStorage(() => localStorage),
           partialize: (state) => ({ character: state.character }),
+          merge(persistedState: unknown, currentState) {
+            if (typeof persistedState !== "object" || !persistedState) {
+              return currentState;
+            }
+
+            const character = (
+              persistedState as Partial<{ character: Character }>
+            ).character;
+            if (!character || character.id !== currentState.character.id) {
+              return currentState;
+            }
+            return {
+              ...currentState,
+              character: {
+                ...character,
+                ...currentState.character,
+              },
+            };
+          },
           version: 1,
         },
       ),

@@ -3,7 +3,7 @@
     "**/*.ts",
     "**/*.tsx",
     "eslint.config.js",
-    ".prettierrc.js",
+    "prettier.config.js",
     "vite.config.js"
   ],
 

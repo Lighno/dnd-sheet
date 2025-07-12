@@ -13,6 +13,7 @@ import NotFound from "../components/NotFound";
 import ClerkProvider from "../integrations/clerk/provider";
 
 import TanstackQueryLayout from "../integrations/tanstack-query/layout";
+import { Provider as TanstackQueryProvider } from "../integrations/tanstack-query/root-provider";
 
 import appCss from "../styles.css?url";
 
@@ -47,12 +48,14 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
   component: () => (
     <RootDocument>
       <ClerkProvider>
-        <Header />
+        <TanstackQueryProvider>
+          <Header />
 
-        <Outlet />
-        <TanStackRouterDevtools />
+          <Outlet />
+          <TanStackRouterDevtools />
 
-        <TanstackQueryLayout />
+          <TanstackQueryLayout />
+        </TanstackQueryProvider>
       </ClerkProvider>
     </RootDocument>
   ),

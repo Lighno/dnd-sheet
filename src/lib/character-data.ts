@@ -1,3 +1,5 @@
+import type { UUID } from "node:crypto";
+
 export type AbilityScores = {
   strength: number;
   dexterity: number;
@@ -124,6 +126,7 @@ export type SpellSlots = {
 
 export type Character = {
   name: string;
+  id: UUID;
   class: string;
   level: number;
   race: string;
@@ -144,6 +147,7 @@ export type Character = {
 
 export const defaultCharacter: Character = {
   name: "New Character",
+  id: crypto.randomUUID(),
   class: "fighter",
   level: 1,
   race: "human",
