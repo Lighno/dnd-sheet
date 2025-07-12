@@ -2,7 +2,13 @@ import { ChevronsUpDown, Pencil, Trash2 } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 import type { Feature } from "~/lib/character-data";
 import Button from "~/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "~/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "~/components/ui/card";
 import {
   Collapsible,
   CollapsibleContent,
@@ -16,7 +22,12 @@ interface FeatureCardProps {
   onRemove: (id: string) => void;
 }
 
-export function FeatureCard({ feature, readOnly = false, onEdit, onRemove }: FeatureCardProps) {
+export function FeatureCard({
+  feature,
+  readOnly = false,
+  onEdit,
+  onRemove,
+}: FeatureCardProps) {
   return (
     <Card>
       <Collapsible>
@@ -61,7 +72,7 @@ export function FeatureCard({ feature, readOnly = false, onEdit, onRemove }: Fea
 
         <CollapsibleContent>
           <CardContent className="pt-0">
-            <div className="prose prose-sm max-w-none dark:prose-invert h-[var(--radix-collapsible-content-height)] ">
+            <div className="prose prose-sm dark:prose-invert h-[var(--radix-collapsible-content-height)] max-w-none ">
               <ReactMarkdown>{feature.description}</ReactMarkdown>
             </div>
           </CardContent>

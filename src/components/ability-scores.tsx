@@ -134,7 +134,9 @@ export default function AbilityScores({
                     id={`save-${ability.key}`}
                     checked={savingThrows[ability.key]}
                     onCheckedChange={() =>
-                      readOnly ? undefined : toggleSavingThrowProficiency(ability.key)
+                      readOnly
+                        ? undefined
+                        : toggleSavingThrowProficiency(ability.key)
                     }
                     disabled={readOnly}
                   />
@@ -167,7 +169,9 @@ export default function AbilityScores({
                           id={skill.name}
                           checked={skills[skill.name]}
                           onCheckedChange={() =>
-                            readOnly ? undefined : toggleSkillProficiency(skill.name)
+                            readOnly
+                              ? undefined
+                              : toggleSkillProficiency(skill.name)
                           }
                           disabled={readOnly}
                         />
@@ -179,9 +183,11 @@ export default function AbilityScores({
                         </label>
                       </div>
                       <div className="font-bold">
-                        {`${getSkillModifier(skill.name, ability.key) >= 0
-                          ? "+"
-                          : ""}${getSkillModifier(skill.name, ability.key)}`}
+                        {`${
+                          getSkillModifier(skill.name, ability.key) >= 0
+                            ? "+"
+                            : ""
+                        }${getSkillModifier(skill.name, ability.key)}`}
                       </div>
                     </div>
                   );

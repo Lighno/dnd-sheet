@@ -47,7 +47,7 @@ export type CombatStats = {
   hitDice: {
     total: number;
     used: number;
-    dieType: number;
+    dieType: 12 | 10 | 8 | 6;
   };
 };
 
@@ -126,7 +126,7 @@ export type SpellSlots = {
 
 export type Character = {
   name: string;
-  id: UUID;
+  id?: UUID;
   class: string;
   level: number;
   race: string;
@@ -147,7 +147,7 @@ export type Character = {
 
 export const defaultCharacter: Character = {
   name: "New Character",
-  id: crypto.randomUUID(),
+  id: undefined,
   class: "fighter",
   level: 1,
   race: "human",

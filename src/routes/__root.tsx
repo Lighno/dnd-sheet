@@ -53,7 +53,7 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
           <ThemeProvider>
             <Header />
 
-            <Outlet />
+            <Outlet key={"root"} />
             <TanStackRouterDevtools />
 
             <TanstackQueryLayout />

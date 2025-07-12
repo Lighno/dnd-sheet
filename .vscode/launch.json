@@ -7,14 +7,9 @@
     {
       "name": "Launch App",
       "request": "launch",
-      "runtimeArgs": [
-        "run-script",
-        "dev"
-      ],
+      "runtimeArgs": ["run-script", "dev"],
       "runtimeExecutable": "pnpm",
-      "skipFiles": [
-        "<node_internals>/**"
-      ],
+      "skipFiles": ["<node_internals>/**"],
       "envFile": "${workspaceFolder}/.env.local",
       "type": "node",
       "console": "integratedTerminal"

@@ -16,7 +16,7 @@ export default function Features({ readOnly = false }: FeaturesProps) {
 
   const [editingFeature, setEditingFeature] = useState<Feature | null>(null);
 
-  const addFeature = (newFeature: Omit<Feature, 'id'>) => {
+  const addFeature = (newFeature: Omit<Feature, "id">) => {
     if (readOnly || !newFeature.name) return;
 
     const feature = {
@@ -33,7 +33,7 @@ export default function Features({ readOnly = false }: FeaturesProps) {
     if (readOnly) return;
     updateCharacter({
       features: features.map((feature) =>
-        feature.id === id ? { ...feature, ...updates } : feature
+        feature.id === id ? { ...feature, ...updates } : feature,
       ),
     });
   };
@@ -52,7 +52,7 @@ export default function Features({ readOnly = false }: FeaturesProps) {
     setEditingFeature(feature);
   };
 
-  const handleSaveEdit = (updated: Omit<Feature, 'id'>) => {
+  const handleSaveEdit = (updated: Omit<Feature, "id">) => {
     if (!editingFeature) return;
     updateFeature(editingFeature.id, updated);
     setEditingFeature(null);

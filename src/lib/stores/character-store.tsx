@@ -13,9 +13,7 @@ type StoreUpdates<T = Character> =
   | Partial<T>
   | ((prev: T) => T | Partial<T>);
 
-type StoreRequiredUpdates<T = Character> =
-  | T
-  | ((prev: T) => T);
+type StoreRequiredUpdates<T = Character> = T | ((prev: T) => T);
 
 interface CharacterActions {
   // Full character updates
@@ -52,10 +50,18 @@ interface CharacterActions {
   addSpell: (spell: Character["spells"][number]) => void;
   removeSpell: (spellId: string) => void;
   toggleSpellPrepared: (spellId: string) => void;
-  setSpellSlotTotal: (level: keyof Character["spellSlots"], value: number) => void;
-  setSpellSlotUsed: (level: keyof Character["spellSlots"], value: number) => void;
+  setSpellSlotTotal: (
+    level: keyof Character["spellSlots"],
+    value: number,
+  ) => void;
+  setSpellSlotUsed: (
+    level: keyof Character["spellSlots"],
+    value: number,
+  ) => void;
   updateSpells: (updates: StoreRequiredUpdates<Character["spells"]>) => void;
-  toggleSavingThrowProficiency: (ability: keyof Character["savingThrows"]) => void;
+  toggleSavingThrowProficiency: (
+    ability: keyof Character["savingThrows"],
+  ) => void;
   toggleSkillProficiency: (skill: keyof Character["skills"]) => void;
 }
 
@@ -125,18 +131,13 @@ export const createCharacterStore = (
                 state.character.combatStats.maxHp + hpChange,
                 1,
               );
-              state.character.combatStats.currentHp = Math.max(
-                state.character.combatStats.maxHp + hpChange,
-                1,
-              );
+              state.character.combatStats.currentHp =
+                state.character.combatStats.maxHp;
               state.character.combatStats.hitDice.total = newLevel;
             }),
 
           // New encapsulated ability score update logic
-          setAbilityScore: (
-            ability,
-            value,
-          ) =>
+          setAbilityScore: (ability, value) =>
             set((state) => {
               state.character.abilityScores[ability] = value;
 
@@ -240,7 +241,8 @@ export const createCharacterStore = (
 
           toggleSavingThrowProficiency: (ability) =>
             set((state) => {
-              state.character.savingThrows[ability] = !state.character.savingThrows[ability];
+              state.character.savingThrows[ability] =
+                !state.character.savingThrows[ability];
             }),
           toggleSkillProficiency: (skill) =>
             set((state) => {
@@ -251,7 +253,12 @@ export const createCharacterStore = (
         {
           name: "dnd-character-storage",
           storage: createJSONStorage(() => localStorage),
-          partialize: (state) => ({ character: state.character }),
+          partialize: (state) => {
+            if (state.character.id === undefined) {
+              state.character.id = crypto.randomUUID();
+            }
+            return { character: state.character };
+          },
           merge(persistedState: unknown, currentState) {
             if (typeof persistedState !== "object" || !persistedState) {
               return currentState;
@@ -260,14 +267,18 @@ export const createCharacterStore = (
             const character = (
               persistedState as Partial<{ character: Character }>
             ).character;
-            if (!character || character.id !== currentState.character.id) {
+            if (
+              !character ||
+              (currentState.character.id !== undefined &&
+                character.id !== currentState.character.id)
+            ) {
               return currentState;
             }
             return {
               ...currentState,
               character: {
-                ...character,
                 ...currentState.character,
+                ...character,
               },
             };
           },

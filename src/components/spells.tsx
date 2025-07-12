@@ -10,21 +10,24 @@ import { useCharacterStore } from "~/lib/stores/store-provider";
 import { SpellCard } from "~/components/ui/spell-card";
 import { SpellForm } from "~/components/ui/spell-form";
 
-
 interface SpellsProps {
   readOnly: boolean;
 }
 
 export default function Spells({ readOnly = false }: SpellsProps) {
-  const { spells, spellSlots, setSpellSlotUsed, setSpellSlotTotal, updateSpells } = useCharacterStore(
-    (state) => ({
-      spells: state.character.spells,
-      spellSlots: state.character.spellSlots,
-      setSpellSlotTotal: state.setSpellSlotTotal,
-      setSpellSlotUsed: state.setSpellSlotUsed,
-      updateSpells: state.updateSpells,
-    }),
-  );
+  const {
+    spells,
+    spellSlots,
+    setSpellSlotUsed,
+    setSpellSlotTotal,
+    updateSpells,
+  } = useCharacterStore((state) => ({
+    spells: state.character.spells,
+    spellSlots: state.character.spellSlots,
+    setSpellSlotTotal: state.setSpellSlotTotal,
+    setSpellSlotUsed: state.setSpellSlotUsed,
+    updateSpells: state.updateSpells,
+  }));
 
   const [editingSpell, setEditingSpell] = useState<Spell | null>(null);
 
@@ -37,17 +40,12 @@ export default function Spells({ readOnly = false }: SpellsProps) {
       id: crypto.randomUUID(),
     };
 
-    updateSpells((oldSpells) =>
-      [...oldSpells, spell],
-    );
+    updateSpells((oldSpells) => [...oldSpells, spell]);
   };
-
 
   const removeSpell = (id: string) => {
     if (readOnly) return;
-    updateSpells((oldSpells) =>
-      oldSpells.filter((spell) => spell.id !== id),
-    );
+    updateSpells((oldSpells) => oldSpells.filter((spell) => spell.id !== id));
     if (editingSpell && editingSpell.id === id) setEditingSpell(null);
   };
 

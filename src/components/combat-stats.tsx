@@ -184,7 +184,7 @@ export default function CombatStats({ readOnly = false }: CombatStatsProps) {
               <div className="flex flex-col items-center">
                 <Label className="mb-2 text-sm font-semibold">Die Type</Label>
                 <div className="grid grid-cols-2 gap-2">
-                  {[6, 8, 10, 12].map((dieType) => (
+                  {([6, 8, 10, 12] as const).map((dieType) => (
                     <button
                       key={dieType}
                       onClick={() =>

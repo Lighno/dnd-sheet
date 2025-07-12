@@ -13,6 +13,7 @@
     "lint": "eslint src",
     "format": "prettier --write . && eslint --fix src",
     "check": "prettier --check . && eslint src",
+    "typecheck": "tsc --noEmit",
     "dev": "vite dev"
   },
   "dependencies": {
@@ -45,6 +46,7 @@
     "immer": "^10.1.1",
     "lucide-react": "^0.525.0",
     "react": "^19.0.0",
+    "react-compiler-runtime": "19.1.0-rc.2",
     "react-dom": "^19.0.0",
     "react-markdown": "^10.1.0",
     "rehype-raw": "^7.0.0",
@@ -70,7 +72,7 @@
     "@vitejs/plugin-react": "^4.6.0",
     "babel-plugin-react-compiler": "19.1.0-rc.2",
     "eslint": "^9.31.0",
-    "eslint-plugin-react-hooks": "6.0.0-rc1",
+    "eslint-plugin-react-hooks": "^6.0.0-rc.1",
     "jsdom": "^26.1.0",
     "netlify-cli": "^22.2.2",
     "prettier": "^3.6.2",
@@ -85,5 +87,5 @@
   "resolutions": {
     "@netlify/blobs": "^8.1.0"
   },
-  "packageManager": "pnpm@10.12.4+sha512.5ea8b0deed94ed68691c9bad4c955492705c5eeb8a87ef86bc62c74a26b037b08ff9570f108b2e4dbd1dd1a9186fea925e527f141c648e85af45631074680184"
+  "packageManager": "pnpm@10.13.1+sha512.37ebf1a5c7a30d5fabe0c5df44ee8da4c965ca0c5af3dbab28c3a1681b70a256218d05c81c9c0dcf767ef6b8551eb5b960042b9ed4300c59242336377e01cfad"
 }

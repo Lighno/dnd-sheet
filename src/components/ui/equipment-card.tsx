@@ -26,9 +26,7 @@ export function EquipmentCard({
         <div className="flex items-center justify-between">
           <div className="flex flex-col">
             <h4 className="font-semibold">{item.name}</h4>
-            <p className="text-xs text-slate-500 capitalize">
-              {item.type}
-            </p>
+            <p className="text-xs text-slate-500 capitalize">{item.type}</p>
           </div>
           <div className="flex items-center space-x-2">
             <div className="flex items-center space-x-1">
@@ -36,7 +34,9 @@ export function EquipmentCard({
                 variant="outline"
                 size="icon"
                 className="h-6 w-6"
-                onClick={() => onUpdateQuantity(item.id, Math.max(1, item.quantity - 1))}
+                onClick={() =>
+                  onUpdateQuantity(item.id, Math.max(1, item.quantity - 1))
+                }
                 disabled={readOnly}
               >
                 -
@@ -61,11 +61,7 @@ export function EquipmentCard({
               {item.equipped ? "Equipped" : "Equip"}
             </Button>
             {!readOnly && onEdit && (
-              <Button
-                variant="ghost"
-                size="icon"
-                onClick={() => onEdit(item)}
-              >
+              <Button variant="ghost" size="icon" onClick={() => onEdit(item)}>
                 <span className="sr-only">Edit</span>
                 <Pencil className="h-4 w-4" />
               </Button>
@@ -82,9 +78,7 @@ export function EquipmentCard({
             )}
           </div>
         </div>
-        {item.description && (
-          <p className="mt-2 text-sm">{item.description}</p>
-        )}
+        {item.description && <p className="mt-2 text-sm">{item.description}</p>}
         <div className="mt-2 text-xs text-slate-500">
           {`Weight: ${item.weight} lbs ${item.quantity > 1 ? `(Total: ${item.weight * item.quantity} lbs)` : ""}`}
         </div>

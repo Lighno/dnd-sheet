@@ -26,5 +26,12 @@
     "typescriptreact"
   ],
   "typescript.tsdk": "node_modules/typescript/lib",
-  "eslint.onIgnoredFiles": "warn"
+  "eslint.onIgnoredFiles": "warn",
+  "cSpell.words": [
+    "Darkvision",
+    "Longsword",
+    "nums",
+    "Spellcasting",
+    "sublabel"
+  ]
 }

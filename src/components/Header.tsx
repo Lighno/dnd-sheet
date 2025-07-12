@@ -2,20 +2,21 @@ import { Link } from "@tanstack/react-router";
 
 import ClerkHeader from "../integrations/clerk/header-user";
 import { ModeToggle } from "./ui/color-theme-toggle";
+import Button from "./ui/button";
 
 export default function Header() {
   return (
-    <header className="flex justify-between gap-2 bg-white p-2 text-black">
+    <header className="bg-background text-foreground flex justify-between gap-2 p-2">
       <nav className="flex flex-row">
-        <div className="px-2 font-bold">
+        <Button variant="link">
           <Link to="/">Home</Link>
-        </div>
+        </Button>
 
-        <div className="px-2 font-bold">
+        <Button variant="link">
           <Link to="/demo/clerk">Clerk</Link>
-        </div>
+        </Button>
 
-        <div className="px-2 font-bold">
+        <Button variant="link">
           <Link
             to="/sheet"
             search={(old) => ({
@@ -24,14 +25,14 @@ export default function Header() {
           >
             Sheet
           </Link>
-        </div>
+        </Button>
 
-        <div className="px-2 font-bold">
+        <Button variant="link">
           <Link to="/test">Test</Link>
-        </div>
+        </Button>
       </nav>
 
-      <div className="flex flex-row gap-2 items-center justify-between">
+      <div className="flex flex-row items-center justify-between gap-2">
         <ClerkHeader />
         <ModeToggle />
       </div>

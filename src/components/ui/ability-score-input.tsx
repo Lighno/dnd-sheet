@@ -104,7 +104,7 @@ export default function AbilityScoreInput({
             type="button"
             onClick={decrement}
             disabled={value <= min || readOnly}
-            className="absolute cursor-pointer -left-3 z-20 flex h-8 w-8 items-center justify-center rounded-full border-2 border-slate-600 bg-slate-700 text-slate-100 opacity-0 shadow-md transition-all group-hover:opacity-100 hover:bg-slate-600 disabled:cursor-not-allowed disabled:opacity-50 dark:border-slate-400 dark:bg-slate-600 dark:hover:bg-slate-500"
+            className="absolute -left-3 z-20 flex h-8 w-8 cursor-pointer items-center justify-center rounded-full border-2 border-slate-600 bg-slate-700 text-slate-100 opacity-0 shadow-md transition-all group-hover:opacity-100 hover:bg-slate-600 disabled:cursor-not-allowed disabled:opacity-50 dark:border-slate-400 dark:bg-slate-600 dark:hover:bg-slate-500"
             aria-label="Decrease value"
           >
             <Minus className="h-4 w-4" />
@@ -113,7 +113,7 @@ export default function AbilityScoreInput({
             type="button"
             onClick={increment}
             disabled={value >= max || readOnly}
-            className="absolute cursor-pointer -right-3 z-20 flex h-8 w-8 items-center justify-center rounded-full border-2 border-slate-600 bg-slate-700 text-slate-100 opacity-0 shadow-md transition-all group-hover:opacity-100 hover:bg-slate-600 disabled:cursor-not-allowed disabled:opacity-50 dark:border-slate-400 dark:bg-slate-600 dark:hover:bg-slate-500"
+            className="absolute -right-3 z-20 flex h-8 w-8 cursor-pointer items-center justify-center rounded-full border-2 border-slate-600 bg-slate-700 text-slate-100 opacity-0 shadow-md transition-all group-hover:opacity-100 hover:bg-slate-600 disabled:cursor-not-allowed disabled:opacity-50 dark:border-slate-400 dark:bg-slate-600 dark:hover:bg-slate-500"
             aria-label="Increase value"
           >
             <Plus className="h-4 w-4" />

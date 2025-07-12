@@ -39,7 +39,9 @@ export function SpellForm({
     prepared: false,
   };
 
-  const [spell, setSpell] = useState<Omit<Spell, "id">>(editSpell ? { ...editSpell } : defaultSpell);
+  const [spell, setSpell] = useState<Omit<Spell, "id">>(
+    editSpell ? { ...editSpell } : defaultSpell,
+  );
 
   useEffect(() => {
     if (editSpell) {
@@ -74,9 +76,7 @@ export function SpellForm({
               <Input
                 id="spell-name"
                 value={spell.name}
-                onChange={(e) =>
-                  setSpell({ ...spell, name: e.target.value })
-                }
+                onChange={(e) => setSpell({ ...spell, name: e.target.value })}
               />
             </div>
             <div className="space-y-2">
@@ -113,9 +113,7 @@ export function SpellForm({
               <Label htmlFor="spell-school">School</Label>
               <Select
                 value={spell.school}
-                onValueChange={(value) =>
-                  setSpell({ ...spell, school: value })
-                }
+                onValueChange={(value) => setSpell({ ...spell, school: value })}
               >
                 <SelectTrigger id="spell-school">
                   <SelectValue placeholder="Select school" />
@@ -150,9 +148,7 @@ export function SpellForm({
               <Input
                 id="spell-range"
                 value={spell.range}
-                onChange={(e) =>
-                  setSpell({ ...spell, range: e.target.value })
-                }
+                onChange={(e) => setSpell({ ...spell, range: e.target.value })}
                 placeholder="60 feet"
               />
             </div>

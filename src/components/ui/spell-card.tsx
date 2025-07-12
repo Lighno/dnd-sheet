@@ -19,10 +19,7 @@ export function SpellCard({
   onTogglePrepared,
 }: SpellCardProps) {
   return (
-    <Card
-      key={spell.id}
-      className={spell.prepared ? "border-primary" : ""}
-    >
+    <Card key={spell.id} className={spell.prepared ? "border-primary" : ""}>
       <CardContent className="p-4">
         <div className="flex items-center justify-between">
           <div>
@@ -43,11 +40,7 @@ export function SpellCard({
               </Button>
             )}
             {!readOnly && onEdit && (
-              <Button
-                variant="ghost"
-                size="icon"
-                onClick={() => onEdit(spell)}
-              >
+              <Button variant="ghost" size="icon" onClick={() => onEdit(spell)}>
                 <span className="sr-only">Edit</span>
                 <Pencil className="h-4 w-4" />
               </Button>

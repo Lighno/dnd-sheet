@@ -62,9 +62,7 @@ export function FeatureForm({
             <Input
               id="feature-name"
               value={feature.name}
-              onChange={(e) =>
-                setFeature({ ...feature, name: e.target.value })
-              }
+              onChange={(e) => setFeature({ ...feature, name: e.target.value })}
               placeholder="e.g., Darkvision, Spellcasting"
             />
           </div>

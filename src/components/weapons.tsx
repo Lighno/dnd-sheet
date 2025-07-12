@@ -1,12 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import type {
-  AbilityScores,
-  DamageType,
-  Weapon,
-  WeaponType,
-} from "~/lib/character-data";
+import type { DamageType, Weapon, WeaponType } from "~/lib/character-data";
 import { useCharacterStore } from "~/lib/stores/store-provider";
 import { WeaponCard } from "~/components/ui/weapon-card";
 import { NewWeaponForm } from "~/components/ui/new-weapon-form";
@@ -34,15 +29,6 @@ const damageTypes: Array<{ value: DamageType; label: string }> = [
   { value: "radiant", label: "Radiant" },
   { value: "slashing", label: "Slashing" },
   { value: "thunder", label: "Thunder" },
-];
-
-const abilityOptions: Array<{ value: keyof AbilityScores; label: string }> = [
-  { value: "strength", label: "Strength" },
-  { value: "dexterity", label: "Dexterity" },
-  { value: "constitution", label: "Constitution" },
-  { value: "intelligence", label: "Intelligence" },
-  { value: "wisdom", label: "Wisdom" },
-  { value: "charisma", label: "Charisma" },
 ];
 
 export default function Weapons({ readOnly = false }: WeaponsProps) {
@@ -123,8 +109,8 @@ export default function Weapons({ readOnly = false }: WeaponsProps) {
       </div>
       {!readOnly && (
         <NewWeaponForm
+          key={"new-weapon-form"}
           onAdd={addWeapon}
-          abilityOptions={abilityOptions}
           damageTypes={damageTypes}
           weaponTypes={weaponTypes}
           editWeapon={editingWeapon}

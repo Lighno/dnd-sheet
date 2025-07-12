@@ -16,7 +16,7 @@ export default function Equipment({ readOnly = false }: EquipmentProps) {
 
   const [editingItem, setEditingItem] = useState<EquipmentItem | null>(null);
 
-  const addItem = (newItem: Omit<EquipmentItem, 'id'>) => {
+  const addItem = (newItem: Omit<EquipmentItem, "id">) => {
     if (readOnly) return;
     if (!newItem.name) return;
 
@@ -64,7 +64,7 @@ export default function Equipment({ readOnly = false }: EquipmentProps) {
     setEditingItem(item);
   };
 
-  const handleSaveEdit = (updated: Omit<EquipmentItem, 'id'>) => {
+  const handleSaveEdit = (updated: Omit<EquipmentItem, "id">) => {
     if (!editingItem) return;
     updateItem(editingItem.id, updated);
     setEditingItem(null);

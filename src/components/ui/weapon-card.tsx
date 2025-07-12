@@ -29,12 +29,8 @@ export function WeaponCard({
     return abilityModifier + proficiencyModifier + weapon.attackBonus;
   };
 
-  const calculateDamageBonus = () => {
-    const abilityModifier = calculateModifier(
-      abilityScores[weapon.abilityScore],
-    );
-    return abilityModifier + weapon.damageBonus;
-  };
+  const damageBonus =
+    calculateModifier(abilityScores[weapon.abilityScore]) + weapon.damageBonus;
 
   return (
     <Card>
@@ -74,13 +70,15 @@ export function WeaponCard({
           </div>
 
           {/* Damage */}
-          <div className="flex min-w-[90px] items-center justify-center gap-1">
+          <div className="flex min-w-[90px] items-center justify-center gap-2">
             <span className="bg-background rounded-md border px-3 py-1 text-lg font-medium">
               {weapon.damageDice}
-              {calculateDamageBonus() !== 0 &&
-                `${calculateDamageBonus() > 0 ? "+" : ""}${calculateDamageBonus()}`}
+              {damageBonus !== 0 &&
+                `${damageBonus > 0 ? "+" : ""}${damageBonus}`}
             </span>
-            {/* Optionally add a damage type icon here */}
+            <span className="text-muted-foreground text-sm">
+              {weapon.damageType}
+            </span>
           </div>
 
           {/* Notes */}

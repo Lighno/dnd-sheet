@@ -1,5 +1,5 @@
 import { ClerkProvider } from "@clerk/clerk-react";
-import { dark } from "@clerk/themes"
+import { dark } from "@clerk/themes";
 
 import { env } from "~/env";
 
@@ -11,7 +11,11 @@ export default function AppClerkProvider({
   children: React.ReactNode;
 }) {
   return (
-    <ClerkProvider publishableKey={PUBLISHABLE_KEY} afterSignOutUrl="/" appearance={{baseTheme: [dark]}}>
+    <ClerkProvider
+      publishableKey={PUBLISHABLE_KEY}
+      afterSignOutUrl="/"
+      appearance={{ baseTheme: [dark] }}
+    >
       {children}
     </ClerkProvider>
   );
