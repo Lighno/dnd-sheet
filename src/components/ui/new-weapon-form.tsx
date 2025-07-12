@@ -6,7 +6,7 @@ import type {
   Weapon,
   WeaponType,
 } from "~/lib/character-data";
-import { Button } from "~/components/ui/button";
+import Button from "~/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "~/components/ui/card";
 import { Checkbox } from "~/components/ui/checkbox";
 import { Input } from "~/components/ui/input";

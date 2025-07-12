@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
 
 import ClerkHeader from "../integrations/clerk/header-user";
+import { ModeToggle } from "./ui/color-theme-toggle";
 
 export default function Header() {
   return (
@@ -30,8 +31,9 @@ export default function Header() {
         </div>
       </nav>
 
-      <div>
+      <div className="flex flex-row gap-2 items-center justify-between">
         <ClerkHeader />
+        <ModeToggle />
       </div>
     </header>
   );

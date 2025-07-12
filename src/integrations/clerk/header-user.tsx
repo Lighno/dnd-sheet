@@ -4,6 +4,7 @@ import {
   SignedOut,
   UserButton,
 } from "@clerk/clerk-react";
+import Button from "~/components/ui/button";
 
 export default function HeaderUser() {
   return (
@@ -12,7 +13,9 @@ export default function HeaderUser() {
         <UserButton />
       </SignedIn>
       <SignedOut>
-        <SignInButton />
+        <SignInButton>
+          <Button>Sign In</Button>
+        </SignInButton>
       </SignedOut>
     </>
   );

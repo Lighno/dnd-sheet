@@ -1,6 +1,7 @@
 "use client";
 
 import { Minus, Plus } from "lucide-react";
+import Button from "./button";
 import type React from "react";
 import { cn } from "~/lib/utils";
 
@@ -78,24 +79,26 @@ export default function StatCircle({
           {/* Control buttons */}
           {showControls && !readOnly && (
             <>
-              <button
+              <Button
                 type="button"
                 onClick={decrement}
                 disabled={value <= min}
                 className="absolute -left-2 z-20 flex h-6 w-6 items-center justify-center rounded-full border border-slate-300 bg-white text-slate-600 opacity-0 shadow-sm transition-all group-hover:opacity-100 hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-50 dark:border-slate-600 dark:bg-slate-700 dark:text-slate-300 dark:hover:bg-slate-600"
                 aria-label="Decrease value"
+                variant="round"
               >
                 <Minus className="h-3 w-3" />
-              </button>
-              <button
+              </Button>
+              <Button
                 type="button"
                 onClick={increment}
                 disabled={Boolean(max && value >= max)}
                 className="absolute -right-2 z-20 flex h-6 w-6 items-center justify-center rounded-full border border-slate-300 bg-white text-slate-600 opacity-0 shadow-sm transition-all group-hover:opacity-100 hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-50 dark:border-slate-600 dark:bg-slate-700 dark:text-slate-300 dark:hover:bg-slate-600"
                 aria-label="Increase value"
+                variant="round"
               >
                 <Plus className="h-3 w-3" />
-              </button>
+              </Button>
             </>
           )}
         </div>

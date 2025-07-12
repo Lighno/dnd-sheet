@@ -12,6 +12,11 @@ type StoreUpdates<T = Character> =
   | T
   | Partial<T>
   | ((prev: T) => T | Partial<T>);
+
+type StoreRequiredUpdates<T = Character> =
+  | T
+  | ((prev: T) => T);
+
 interface CharacterActions {
   // Full character updates
   setCharacter: (character: Character) => void;
@@ -47,8 +52,11 @@ interface CharacterActions {
   addSpell: (spell: Character["spells"][number]) => void;
   removeSpell: (spellId: string) => void;
   toggleSpellPrepared: (spellId: string) => void;
-  useSpellSlot: (level: keyof Character["spellSlots"]) => void;
-  restoreSpellSlot: (level: keyof Character["spellSlots"]) => void;
+  setSpellSlotTotal: (level: keyof Character["spellSlots"], value: number) => void;
+  setSpellSlotUsed: (level: keyof Character["spellSlots"], value: number) => void;
+  updateSpells: (updates: StoreRequiredUpdates<Character["spells"]>) => void;
+  toggleSavingThrowProficiency: (ability: keyof Character["savingThrows"]) => void;
+  toggleSkillProficiency: (skill: keyof Character["skills"]) => void;
 }
 
 export type CharacterStore = CharacterState & CharacterActions;
@@ -61,7 +69,7 @@ export const createCharacterStore = (
         immer((set) => ({
           ...initialState,
 
-          setCharacter: (character: Character) =>
+          setCharacter: (character) =>
             set((state) => {
               state.character = character;
             }),
@@ -102,7 +110,7 @@ export const createCharacterStore = (
             });
           },
           // New encapsulated level update logic
-          updateLevel: (newLevel: number) =>
+          updateLevel: (newLevel) =>
             set((state) => {
               const conMod = calculateModifier(
                 state.character.abilityScores.constitution,
@@ -126,8 +134,8 @@ export const createCharacterStore = (
 
           // New encapsulated ability score update logic
           setAbilityScore: (
-            ability: keyof Character["abilityScores"],
-            value: number,
+            ability,
+            value,
           ) =>
             set((state) => {
               state.character.abilityScores[ability] = value;
@@ -152,7 +160,7 @@ export const createCharacterStore = (
               }
             }),
 
-          modifyHp: (amount: number) =>
+          modifyHp: (amount) =>
             set((state) => {
               const newHp = Math.min(
                 state.character.combatStats.maxHp,
@@ -161,48 +169,48 @@ export const createCharacterStore = (
               state.character.combatStats.currentHp = newHp;
             }),
 
-          setTemporaryHp: (amount: number) =>
+          setTemporaryHp: (amount) =>
             set((state) => {
               state.character.combatStats.temporaryHp = Math.max(0, amount);
             }),
 
-          addWeapon: (weapon: Character["weapons"][number]) =>
+          addWeapon: (weapon) =>
             set((state) => {
               state.character.weapons.push(weapon);
             }),
 
-          removeWeapon: (weaponId: string) =>
+          removeWeapon: (weaponId) =>
             set((state) => {
               state.character.weapons = state.character.weapons.filter(
                 (w) => w.id !== weaponId,
               );
             }),
 
-          addEquipment: (item: Character["equipment"][number]) =>
+          addEquipment: (item) =>
             set((state) => {
               state.character.equipment.push(item);
             }),
 
-          removeEquipment: (itemId: string) =>
+          removeEquipment: (itemId) =>
             set((state) => {
               state.character.equipment = state.character.equipment.filter(
                 (i) => i.id !== itemId,
               );
             }),
 
-          addSpell: (spell: Character["spells"][number]) =>
+          addSpell: (spell) =>
             set((state) => {
               state.character.spells.push(spell);
             }),
 
-          removeSpell: (spellId: string) =>
+          removeSpell: (spellId) =>
             set((state) => {
               state.character.spells = state.character.spells.filter(
                 (s) => s.id !== spellId,
               );
             }),
 
-          toggleSpellPrepared: (spellId: string) =>
+          toggleSpellPrepared: (spellId) =>
             set((state) => {
               const spell = state.character.spells.find(
                 (s) => s.id === spellId,
@@ -212,23 +220,34 @@ export const createCharacterStore = (
               }
             }),
 
-          useSpellSlot: (level: keyof Character["spellSlots"]) =>
+          updateSpells: (updates) =>
             set((state) => {
-              if (
-                state.character.spellSlots[level].used <
-                state.character.spellSlots[level].total
-              ) {
-                state.character.spellSlots[level].used += 1;
+              if (typeof updates === "function") {
+                updates = updates(state.character.spells);
               }
+              state.character.spells = updates;
             }),
 
-          restoreSpellSlot: (level: keyof Character["spellSlots"]) =>
+          setSpellSlotTotal: (level, value) =>
             set((state) => {
-              if (state.character.spellSlots[level].used > 0) {
-                state.character.spellSlots[level].used -= 1;
-              }
+              state.character.spellSlots[level].total = value;
+            }),
+
+          setSpellSlotUsed: (level, value) =>
+            set((state) => {
+              state.character.spellSlots[level].used = value;
+            }),
+
+          toggleSavingThrowProficiency: (ability) =>
+            set((state) => {
+              state.character.savingThrows[ability] = !state.character.savingThrows[ability];
+            }),
+          toggleSkillProficiency: (skill) =>
+            set((state) => {
+              state.character.skills[skill] = !state.character.skills[skill];
             }),
         })),
+
         {
           name: "dnd-character-storage",
           storage: createJSONStorage(() => localStorage),

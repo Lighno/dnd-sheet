@@ -1,6 +1,6 @@
 import { Pencil, Trash2 } from "lucide-react";
 import type { AbilityScores, Weapon } from "~/lib/character-data";
-import { Button } from "~/components/ui/button";
+import Button from "~/components/ui/button";
 import { Card, CardContent } from "~/components/ui/card";
 import { calculateModifier } from "~/lib/utils";
 

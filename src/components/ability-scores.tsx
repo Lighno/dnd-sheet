@@ -23,7 +23,6 @@ import {
 } from "lucide-react";
 import type {
   AbilityScores as AbilityScoresType,
-  SavingThrows,
   Skill,
 } from "~/lib/character-data";
 import { Card, CardContent } from "~/components/ui/card";
@@ -85,34 +84,16 @@ export default function AbilityScores({
     savingThrows,
     skills,
     proficiencyBonus,
-    updateCharacter,
+    toggleSavingThrowProficiency,
+    toggleSkillProficiency,
   } = useCharacterStore((state) => ({
     abilityScores: state.character.abilityScores,
     savingThrows: state.character.savingThrows,
     skills: state.character.skills,
     proficiencyBonus: state.character.proficiencyBonus,
-    updateCharacter: state.updateCharacter,
+    toggleSavingThrowProficiency: state.toggleSavingThrowProficiency,
+    toggleSkillProficiency: state.toggleSkillProficiency,
   }));
-
-  const toggleSavingThrowProficiency = (ability: keyof SavingThrows) => {
-    if (readOnly) return;
-    updateCharacter({
-      savingThrows: {
-        ...savingThrows,
-        [ability]: !savingThrows[ability],
-      },
-    });
-  };
-
-  const toggleSkillProficiency = (skill: Skill) => {
-    if (readOnly) return;
-    updateCharacter({
-      skills: {
-        ...skills,
-        [skill]: !skills[skill],
-      },
-    });
-  };
 
   const getSavingThrowModifier = (ability: keyof AbilityScoresType) => {
     const abilityModifier = calculateModifier(abilityScores[ability]);
@@ -153,7 +134,7 @@ export default function AbilityScores({
                     id={`save-${ability.key}`}
                     checked={savingThrows[ability.key]}
                     onCheckedChange={() =>
-                      toggleSavingThrowProficiency(ability.key)
+                      readOnly ? undefined : toggleSavingThrowProficiency(ability.key)
                     }
                     disabled={readOnly}
                   />
@@ -165,8 +146,7 @@ export default function AbilityScores({
                   </label>
                 </div>
                 <div className="font-bold">
-                  {getSavingThrowModifier(ability.key) >= 0 ? "+" : ""}
-                  {getSavingThrowModifier(ability.key)}
+                  {`${getSavingThrowModifier(ability.key) >= 0 ? "+" : ""}${getSavingThrowModifier(ability.key)}`}
                 </div>
               </div>
             </div>
@@ -187,7 +167,7 @@ export default function AbilityScores({
                           id={skill.name}
                           checked={skills[skill.name]}
                           onCheckedChange={() =>
-                            toggleSkillProficiency(skill.name)
+                            readOnly ? undefined : toggleSkillProficiency(skill.name)
                           }
                           disabled={readOnly}
                         />
@@ -199,10 +179,9 @@ export default function AbilityScores({
                         </label>
                       </div>
                       <div className="font-bold">
-                        {getSkillModifier(skill.name, ability.key) >= 0
+                        {`${getSkillModifier(skill.name, ability.key) >= 0
                           ? "+"
-                          : ""}
-                        {getSkillModifier(skill.name, ability.key)}
+                          : ""}${getSkillModifier(skill.name, ability.key)}`}
                       </div>
                     </div>
                   );

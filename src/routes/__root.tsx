@@ -18,6 +18,7 @@ import { Provider as TanstackQueryProvider } from "../integrations/tanstack-quer
 import appCss from "../styles.css?url";
 
 import type { QueryClient } from "@tanstack/react-query";
+import { ThemeProvider } from "~/components/theme-provider";
 
 interface MyRouterContext {
   queryClient: QueryClient;
@@ -49,12 +50,14 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
     <RootDocument>
       <ClerkProvider>
         <TanstackQueryProvider>
-          <Header />
+          <ThemeProvider>
+            <Header />
 
-          <Outlet />
-          <TanStackRouterDevtools />
+            <Outlet />
+            <TanStackRouterDevtools />
 
-          <TanstackQueryLayout />
+            <TanstackQueryLayout />
+          </ThemeProvider>
         </TanstackQueryProvider>
       </ClerkProvider>
     </RootDocument>

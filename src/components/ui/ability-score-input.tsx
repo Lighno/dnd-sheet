@@ -58,24 +58,24 @@ export default function AbilityScoreInput({
 
       {/* Main circle container */}
       <div className="group relative">
-        {/* Outer decorative ring with runes */}
+        {/* Outer decorative ring with runes
         <div
           className="animate-spin-slow absolute inset-0 rounded-full border-2 border-slate-300 dark:border-slate-600"
           style={{
-            background: `conic-gradient(from 0deg, 
-                 transparent 0deg, 
-                 rgba(100, 116, 139, 0.1) 90deg, 
+            background: `conic-gradient(from 0deg,
+                 transparent 0deg,
+                 rgba(100, 116, 139, 0.1) 90deg,
                  transparent 180deg,
                  rgba(100, 116, 139, 0.1) 270deg,
                  transparent 360deg)`,
           }}
-        />
+        /> */}
 
         {/* Main input circle */}
         <div className="relative flex h-24 w-24 items-center justify-center rounded-full border-4 border-slate-700 bg-white shadow-lg transition-transform hover:scale-105 dark:border-slate-500 dark:bg-slate-800">
           {/* Background patterns */}
-          <div className="absolute inset-0 rounded-full bg-[radial-gradient(circle_at_50%_120%,rgba(100,116,139,0.2),transparent_70%)]" />
-          <div className="absolute inset-0 rounded-full bg-[radial-gradient(circle_at_50%_-20%,rgba(255,255,255,0.3),transparent_70%)] dark:bg-[radial-gradient(circle_at_50%_-20%,rgba(100,116,139,0.3),transparent_70%)]" />
+          {/* <div className="absolute inset-0 rounded-full bg-[radial-gradient(circle_at_50%_120%,rgba(100,116,139,0.2),transparent_70%)]" />
+          <div className="absolute inset-0 rounded-full bg-[radial-gradient(circle_at_50%_-20%,rgba(255,255,255,0.3),transparent_70%)] dark:bg-[radial-gradient(circle_at_50%_-20%,rgba(100,116,139,0.3),transparent_70%)]" /> */}
 
           {/* Score input */}
           <input
@@ -104,7 +104,7 @@ export default function AbilityScoreInput({
             type="button"
             onClick={decrement}
             disabled={value <= min || readOnly}
-            className="absolute -left-3 z-20 flex h-8 w-8 items-center justify-center rounded-full border-2 border-slate-600 bg-slate-700 text-slate-100 opacity-0 shadow-md transition-all group-hover:opacity-100 hover:bg-slate-600 disabled:cursor-not-allowed disabled:opacity-50 dark:border-slate-400 dark:bg-slate-600 dark:hover:bg-slate-500"
+            className="absolute cursor-pointer -left-3 z-20 flex h-8 w-8 items-center justify-center rounded-full border-2 border-slate-600 bg-slate-700 text-slate-100 opacity-0 shadow-md transition-all group-hover:opacity-100 hover:bg-slate-600 disabled:cursor-not-allowed disabled:opacity-50 dark:border-slate-400 dark:bg-slate-600 dark:hover:bg-slate-500"
             aria-label="Decrease value"
           >
             <Minus className="h-4 w-4" />
@@ -113,7 +113,7 @@ export default function AbilityScoreInput({
             type="button"
             onClick={increment}
             disabled={value >= max || readOnly}
-            className="absolute -right-3 z-20 flex h-8 w-8 items-center justify-center rounded-full border-2 border-slate-600 bg-slate-700 text-slate-100 opacity-0 shadow-md transition-all group-hover:opacity-100 hover:bg-slate-600 disabled:cursor-not-allowed disabled:opacity-50 dark:border-slate-400 dark:bg-slate-600 dark:hover:bg-slate-500"
+            className="absolute cursor-pointer -right-3 z-20 flex h-8 w-8 items-center justify-center rounded-full border-2 border-slate-600 bg-slate-700 text-slate-100 opacity-0 shadow-md transition-all group-hover:opacity-100 hover:bg-slate-600 disabled:cursor-not-allowed disabled:opacity-50 dark:border-slate-400 dark:bg-slate-600 dark:hover:bg-slate-500"
             aria-label="Increase value"
           >
             <Plus className="h-4 w-4" />
