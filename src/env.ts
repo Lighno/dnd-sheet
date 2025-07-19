@@ -1,12 +1,12 @@
 import { createEnv } from "@t3-oss/env-core";
-import { z } from "zod";
+import { type } from "arktype";
 
 const isServer = typeof window === "undefined";
 
 export const env = createEnv({
   server: {
-    SERVER_URL: z.string().url().optional(),
-    CLERK_SECRET_KEY: z.string(),
+    SERVER_URL: type("string.url | undefined"),
+    CLERK_SECRET_KEY: type("string"),
   },
 
   isServer,
@@ -18,7 +18,7 @@ export const env = createEnv({
   clientPrefix: "VITE_",
 
   client: {
-    VITE_CLERK_PUBLISHABLE_KEY: z.string(),
+    VITE_CLERK_PUBLISHABLE_KEY: type("string"),
   },
 
   /**

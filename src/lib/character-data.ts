@@ -1,149 +1,158 @@
-import type { UUID } from "node:crypto";
+import { type } from "arktype";
 
-export type AbilityScores = {
-  strength: number;
-  dexterity: number;
-  constitution: number;
-  intelligence: number;
-  wisdom: number;
-  charisma: number;
-};
+export const AbilityScoresSchema = type({
+  strength: "number",
+  dexterity: "number",
+  constitution: "number",
+  intelligence: "number",
+  wisdom: "number",
+  charisma: "number",
+});
+export type AbilityScores = typeof AbilityScoresSchema.infer;
 
-export type Skill =
-  | "acrobatics"
-  | "animalHandling"
-  | "arcana"
-  | "athletics"
-  | "deception"
-  | "history"
-  | "insight"
-  | "intimidation"
-  | "investigation"
-  | "medicine"
-  | "nature"
-  | "perception"
-  | "performance"
-  | "persuasion"
-  | "religion"
-  | "sleightOfHand"
-  | "stealth"
-  | "survival";
+export const SkillSchema = type({
+  acrobatics: "boolean",
+  animalHandling: "boolean",
+  arcana: "boolean",
+  athletics: "boolean",
+  deception: "boolean",
+  history: "boolean",
+  insight: "boolean",
+  intimidation: "boolean",
+  investigation: "boolean",
+  medicine: "boolean",
+  nature: "boolean",
+  perception: "boolean",
+  performance: "boolean",
+  persuasion: "boolean",
+  religion: "boolean",
+  sleightOfHand: "boolean",
+  stealth: "boolean",
+  survival: "boolean",
+});
+export type Skill = typeof SkillSchema.keyof;
 
-export type SavingThrows = {
-  strength: boolean;
-  dexterity: boolean;
-  constitution: boolean;
-  intelligence: boolean;
-  wisdom: boolean;
-  charisma: boolean;
-};
+export const SavingThrowSchema = type({
+  strength: "boolean",
+  dexterity: "boolean",
+  constitution: "boolean",
+  intelligence: "boolean",
+  wisdom: "boolean",
+  charisma: "boolean",
+});
+export type SavingThrows = typeof SavingThrowSchema.infer;
 
-export type CombatStats = {
-  maxHp: number;
-  currentHp: number;
-  temporaryHp: number;
-  armorClass: number;
-  speed: number;
+export const CombatStatsSchema = type({
+  maxHp: "number",
+  currentHp: "number",
+  temporaryHp: "number",
+  armorClass: "number",
+  speed: "number",
   hitDice: {
-    total: number;
-    used: number;
-    dieType: 12 | 10 | 8 | 6;
-  };
-};
+    total: "number",
+    used: "number",
+    dieType: "12 | 10 | 8 | 6",
+  },
+});
+export type CombatStats = typeof CombatStatsSchema.infer;
 
-export type WeaponType = "melee" | "ranged" | "spell";
-export type DamageType =
-  | "acid"
-  | "bludgeoning"
-  | "cold"
-  | "fire"
-  | "force"
-  | "lightning"
-  | "necrotic"
-  | "piercing"
-  | "poison"
-  | "psychic"
-  | "radiant"
-  | "slashing"
-  | "thunder";
+export const WeaponTypeSchema = type("'melee' | 'ranged' | 'spell'");
+export type WeaponType = typeof WeaponTypeSchema.infer;
 
-export type Weapon = {
-  id: string;
-  name: string;
-  type: WeaponType;
-  isProficient: boolean;
-  abilityScore: keyof AbilityScores;
-  attackBonus: number; // Additional bonus beyond ability and proficiency
-  damageDice: string; // e.g., "1d8"
-  damageBonus: number; // Additional bonus beyond ability
-  damageType: DamageType;
-  properties: Array<string>; // e.g., ["finesse", "light", "thrown"]
-  range?: string; // e.g., "20/60" for ranged weapons
-  notes?: string;
-};
+export const DamageTypeSchema = type(
+  "'acid' | 'bludgeoning' | 'cold' | 'fire' | 'force' | 'lightning' | 'necrotic' | 'piercing' | 'poison' | 'psychic' | 'radiant' | 'slashing' | 'thunder' | 'none'",
+);
+export type DamageType = typeof DamageTypeSchema.infer;
 
-export type Feature = {
-  id: string;
-  name: string;
-  source: string;
-  description: string;
-};
+export const WeaponPropertiesSchema = type(
+  "'ammunition' | 'finesse' | 'heavy' | 'light' | 'loading' | 'reach' | 'special' | 'thrown' | 'two-handed' | 'versatile'",
+);
+export type WeaponProperties = typeof WeaponPropertiesSchema.infer;
 
-export type EquipmentItem = {
-  id: string;
-  name: string;
-  type: string;
-  quantity: number;
-  weight: number;
-  description: string;
-  equipped: boolean;
-};
+export const WeaponSchema = type({
+  id: "string",
+  name: "string",
+  type: WeaponTypeSchema,
+  isProficient: "boolean",
+  abilityScore: AbilityScoresSchema.keyof,
+  attackBonus: "number", // Additional bonus beyond ability and proficiency
+  damageDice: /\d+d\d+/, // e.g., "1d8"
+  damageBonus: "number", // Additional bonus beyond ability
+  damageType: DamageTypeSchema,
+  properties: WeaponPropertiesSchema.array,
+  "range?": /\d+(\/\d+)?/, // e.g., "20/60" for ranged weapons
+  "notes?": "string",
+});
+export type Weapon = typeof WeaponSchema.infer;
 
-export type Spell = {
-  id: string;
-  name: string;
-  level: number;
-  school: string;
-  castingTime: string;
-  range: string;
-  components: string;
-  duration: string;
-  description: string;
-  prepared: boolean;
-};
+export const FeatureSchema = type({
+  id: "string",
+  name: "string",
+  source: "string",
+  description: "string",
+});
+export type Feature = typeof FeatureSchema.infer;
 
-export type SpellSlots = {
-  1: { used: number; total: number };
-  2: { used: number; total: number };
-  3: { used: number; total: number };
-  4: { used: number; total: number };
-  5: { used: number; total: number };
-  6: { used: number; total: number };
-  7: { used: number; total: number };
-  8: { used: number; total: number };
-  9: { used: number; total: number };
-};
+export const EquipmentItemSchema = type({
+  id: "string",
+  name: "string",
+  type: "string",
+  quantity: "number",
+  weight: "number",
+  description: "string",
+  equipped: "boolean",
+});
+export type EquipmentItem = typeof EquipmentItemSchema.infer;
 
-export type Character = {
-  name: string;
-  id?: UUID;
-  class: string;
-  level: number;
-  race: string;
-  background: string;
-  alignment: string;
-  experiencePoints: string;
-  proficiencyBonus: number;
-  abilityScores: AbilityScores;
-  savingThrows: SavingThrows;
-  skills: Record<Skill, boolean>;
-  combatStats: CombatStats;
-  weapons: Array<Weapon>;
-  features: Array<Feature>;
-  equipment: Array<EquipmentItem>;
-  spells: Array<Spell>;
-  spellSlots: SpellSlots;
-};
+export const SpellSchema = type({
+  id: "string",
+  name: "string",
+  level: "number",
+  school: "string",
+  castingTime: "string",
+  range: "string",
+  components: "string",
+  duration: "string",
+  description: "string",
+  equipped: "boolean",
+});
+
+export type Spell = typeof SpellSchema.infer;
+
+export const SpellSlotsSchema = type({
+  "1": { used: "number", total: "number" },
+  "2": { used: "number", total: "number" },
+  "3": { used: "number", total: "number" },
+  "4": { used: "number", total: "number" },
+  "5": { used: "number", total: "number" },
+  "6": { used: "number", total: "number" },
+  "7": { used: "number", total: "number" },
+  "8": { used: "number", total: "number" },
+  "9": { used: "number", total: "number" },
+});
+export type SpellSlots = typeof SpellSlotsSchema.infer;
+
+export const CharacterSchema = type({
+  name: "string",
+  id: "undefined | string.uuid.v4",
+  class: "string",
+  level: "number",
+  race: "string",
+  background: "string",
+  alignment: "string",
+  experiencePoints: "string",
+  proficiencyBonus: "number",
+  abilityScores: AbilityScoresSchema,
+  savingThrows: SavingThrowSchema,
+  skills: SkillSchema,
+  combatStats: CombatStatsSchema,
+  weapons: WeaponSchema.array,
+  features: FeatureSchema.array,
+  equipment: EquipmentItemSchema.array,
+  spells: SpellSchema.array,
+  spellSlots: SpellSlotsSchema,
+});
+export type Character = typeof CharacterSchema.infer;
 
 export const defaultCharacter: Character = {
   name: "New Character",
